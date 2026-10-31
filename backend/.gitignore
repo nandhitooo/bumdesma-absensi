@@ -1,0 +1,19 @@
+node_modules/
+.env
+
+# Kredensial service account Firebase (push notification FCM).
+# JANGAN pernah di-commit — berisi private key yang bisa mengirim push
+# atas nama project Firebase.
+secrets/
+*firebase-adminsdk*.json
+*service-account*.json
+
+uploads/surat-izin/*
+!uploads/surat-izin/.gitkeep
+uploads/qrcode/*
+!uploads/qrcode/.gitkeep
+*.log
+.DS_Store
+
+# Knowledge graph graphify (auto-rebuild oleh post-commit hook)
+graphify-out/

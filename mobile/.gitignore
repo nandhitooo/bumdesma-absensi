@@ -1,0 +1,55 @@
+# Secrets — never commit real keys
+.env
+
+# Flutter/Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+
+# Android
+android/**/gradle-wrapper.jar
+android/.gradle
+android/captures/
+android/gradlew
+android/gradlew.bat
+android/local.properties
+android/**/GeneratedPluginRegistrant.java
+
+# iOS
+ios/**/Pods/
+ios/.symlinks/
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/Flutter/App.framework
+ios/Flutter/flutter_assets/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+#Build outputs
+build/
+android/build/
+android/app/build/
+# Knowledge graph graphify (auto-rebuild oleh post-commit hook)
+graphify-out/
+
+# Flutter/Gradle generated (besar & selalu dibuat ulang)
+linux/flutter/ephemeral/
+ios/Flutter/ephemeral/
+ios/Flutter/Flutter.framework/
+ios/Flutter/flutter_assets/
+ios/Flutter/Env.xcconfig
+android/.kotlin/
+.android/
+
+# Kunci & konfigurasi native (jangan di-commit)
+android/app/google-services.json
+android/key.properties
+*.jks
+*.keystore

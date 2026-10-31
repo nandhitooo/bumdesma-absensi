@@ -1,0 +1,22 @@
+# Konteks build Docker = root monorepo, jadi semuanya yang tidak dipakai
+# image harus dikecualikan (terutama pa.xml 90MB+ dan folder mobile/build).
+.git
+.gitignore
+.vscode
+*.log
+
+node_modules
+**/node_modules
+**/dist
+**/.env
+**/.env.local
+
+mobile
+graphify-out
+**/graphify-out
+backend/uploads
+backend/secrets
+**/screenshots
+pa.xml
+strix_runs
+skills-lock.json

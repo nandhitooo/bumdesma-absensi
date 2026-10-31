@@ -1,0 +1,40 @@
+<!--
+  1) Info.plist (ios/Runner/Info.plist) — add these keys inside the
+     outermost <dict>. $(MAPS_API_IOS) is resolved at build time from
+     Env.xcconfig (see Env.xcconfig.instructions), which reads it straight
+     out of the project's .env file.
+-->
+
+<key>NSLocationWhenInUseUsageDescription</key>
+<string>Aplikasi memerlukan lokasi Anda untuk memvalidasi absensi (geofencing kantor).</string>
+
+<key>NSCameraUsageDescription</key>
+<string>Aplikasi memerlukan akses kamera untuk memindai QR Code absensi.</string>
+
+<key>GMSApiKey</key>
+<string>$(MAPS_API_IOS)</string>
+
+<!--
+  2) ios/Runner/AppDelegate.swift — register the Maps SDK using the same
+     Info.plist value so there is exactly one source of truth for the key:
+-->
+
+<!--
+import UIKit
+import Flutter
+import GoogleMaps
+
+@main
+@objc class AppDelegate: FlutterAppDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+    if let apiKey = Bundle.main.object(forInfoDictionaryKey: "GMSApiKey") as? String {
+      GMSServices.provideAPIKey(apiKey)
+    }
+    GeneratedPluginRegistrant.register(with: self)
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+}
+-->

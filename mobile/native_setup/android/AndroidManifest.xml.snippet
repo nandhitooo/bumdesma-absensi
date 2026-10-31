@@ -1,0 +1,28 @@
+<!--
+  Add this <meta-data> tag inside the <application> tag of
+  android/app/src/main/AndroidManifest.xml (created by `flutter create .`).
+
+  It reads ${MAPS_API_KEY}, which is injected at build time by the Gradle
+  snippet in build.gradle.snippet — the actual key never gets hardcoded
+  into the manifest or committed to git.
+
+  Also add the location permissions above <application>, required by the
+  geolocator package for geofencing (Sub Bab 3.2.7).
+-->
+
+<uses-permission android:name="android.permission.INTERNET" />
+<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+<uses-permission android:name="android.permission.CAMERA" />
+
+<application
+    android:label="Absensi BUMDESMA"
+    android:icon="@mipmap/ic_launcher">
+
+    <meta-data
+        android:name="com.google.android.geo.API_KEY"
+        android:value="${MAPS_API_KEY}" />
+
+    <!-- ... keep the rest of the existing <application> content (activities, etc.) ... -->
+
+</application>

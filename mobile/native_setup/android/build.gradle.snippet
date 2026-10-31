@@ -1,0 +1,48 @@
+// Add this near the top of android/app/build.gradle (or build.gradle.kts —
+// see the Kotlin DSL version below), BEFORE the `android { ... }` block.
+// It reads MAPS_API_ANDROID from the project's .env file so the real key
+// never has to be duplicated or hardcoded inside the Android project.
+
+def envFile = rootProject.file("../.env")
+def envVars = [:]
+if (envFile.exists()) {
+    envFile.eachLine { line ->
+        if (line.trim() && !line.trim().startsWith('#') && line.contains('=')) {
+            def (key, value) = line.split('=', 2)
+            envVars[key.trim()] = value.trim()
+        }
+    }
+}
+
+android {
+    // ...existing config...
+
+    defaultConfig {
+        // ...existing applicationId, minSdk, etc...
+
+        manifestPlaceholders += [
+            MAPS_API_KEY: envVars.get('MAPS_API_ANDROID', '')
+        ]
+    }
+}
+
+// ---------------------------------------------------------------------
+// Kotlin DSL (build.gradle.kts) equivalent, if your project uses that:
+//
+// val envFile = rootProject.file("../.env")
+// val envVars = mutableMapOf<String, String>()
+// if (envFile.exists()) {
+//     envFile.readLines().forEach { line ->
+//         val trimmed = line.trim()
+//         if (trimmed.isNotEmpty() && !trimmed.startsWith("#") && trimmed.contains("=")) {
+//             val (key, value) = trimmed.split("=", limit = 2)
+//             envVars[key.trim()] = value.trim()
+//         }
+//     }
+// }
+//
+// android {
+//     defaultConfig {
+//         manifestPlaceholders["MAPS_API_KEY"] = envVars["MAPS_API_ANDROID"] ?: ""
+//     }
+// }

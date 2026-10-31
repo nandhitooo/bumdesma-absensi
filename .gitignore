@@ -1,0 +1,51 @@
+# ============================================================================
+# Aturan ignore monorepo BUMDESMA.
+# Repo root = folder ini. Aturan per-workspace tetap berlaku:
+# backend/.gitignore, frontend/.gitignore, mobile/.gitignore.
+# Yang di-commit: source code, konfigurasi, dokumentasi, package-lock.json,
+# docker-compose.yml, Dockerfile, dan file *.example.
+# ============================================================================
+
+# --- Dependency & artefak build ---------------------------------------------
+node_modules/
+dist/
+dist-ssr/
+mobile/build/
+mobile/.dart_tool/
+mobile/android/.gradle/
+mobile/linux/flutter/ephemeral/
+mobile/ios/Flutter/ephemeral/
+
+# --- Rahasia & konfigurasi lokal (jangan pernah di-commit) -------------------
+.env
+.env.*
+!**/.env.example
+**/secrets/
+*firebase-adminsdk*.json
+*service-account*.json
+mobile/android/app/google-services.json
+mobile/android/local.properties
+mobile/android/key.properties
+*.jks
+*.keystore
+
+# --- Berkas lokal berukuran besar / tidak untuk repositori -------------------
+.local/
+pa.xml
+
+# --- Hasil tooling (graphify, agen) -----------------------------------------
+graphify-out/
+strix_runs/
+skills-lock.json
+
+# --- Editor, OS, log ---------------------------------------------------------
+.vscode/
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
+*.log
+
+# --- Sementara -----------------------------------------------------------------
+*.tmp
+*.bak
