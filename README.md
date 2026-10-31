@@ -81,6 +81,21 @@ merupakan workspace npm; `mobile` memakai Flutter dan dikelola dengan
 │       └── utils/               # JWT, geofencing, notifier, mailer, report, dsb
 │
 ├── mobile/                      # Aplikasi mobile pegawai — Flutter (repo sama, di luar workspace npm)
+│   ├── pubspec.yaml              # Dependency dan konfigurasi Flutter
+│   ├── assets/                   # Aset aplikasi (gambar, logo)
+│   ├── lib/
+│   │   ├── main.dart             # Entry point; inisialisasi app dan service
+│   │   ├── core/                 # API client, penyimpanan sesi, tema, utilitas
+│   │   ├── models/               # Model data absensi, pegawai, izin, piket, notifikasi
+│   │   ├── services/             # Service mock dan HTTP untuk API backend
+│   │   ├── state/                # State aplikasi dengan provider
+│   │   ├── screens/              # Layar login, dashboard, scan, izin, riwayat, profil
+│   │   ├── shell/                # Navigasi utama aplikasi
+│   │   └── widgets/              # Komponen UI yang dipakai ulang
+│   ├── test/                     # Widget test Flutter
+│   ├── android/, ios/, linux/    # Konfigurasi dan runner platform
+│   ├── native_setup/             # Panduan konfigurasi API key Maps native
+│   └── docs/                     # Dokumentasi khusus mobile
 │
 └── .local/                      # Berkas lokal saja (di-.gitignore), mis. dokumen PA
 ```
