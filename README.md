@@ -5,13 +5,15 @@ BUMDESMA Podo Rukun LKD:
 
 - **`frontend`** — Website Admin & Pimpinan (React + Vite + Tailwind CSS)
 - **`backend`** — REST API (Node.js + Express + Sequelize + PostgreSQL)
+- **`mobile`** — Aplikasi pegawai (Flutter)
 
 Keduanya memakai **npm workspaces**, jadi seluruh dependency disimpan di **satu
 `node_modules` di root** dan cukup satu `npm install`. Frontend & backend bisa
 dijalankan bersamaan di **satu terminal** lewat `npm run dev:all`.
 
-> Catatan: aplikasi mobile pegawai ada di folder terpisah `mobile/`
-> (Flutter) dan **bukan** bagian dari workspace npm ini.
+Ketiga proyek berada dalam **satu repository Git**. `frontend` dan `backend`
+merupakan workspace npm; `mobile` memakai Flutter dan dikelola dengan
+`flutter pub get` dari foldernya sendiri.
 
 ---
 
@@ -21,7 +23,8 @@ dijalankan bersamaan di **satu terminal** lewat `npm run dev:all`.
 | --- | --- |
 | Frontend | React 19, Vite, Tailwind CSS, axios, Font Awesome, Google Fonts (Nunito) |
 | Backend | Node.js, Express, Sequelize, PostgreSQL, JWT + bcrypt |
-| Tools monorepo | npm workspaces, concurrently |
+| Mobile | Flutter, Dart |
+| Tools monorepo | npm workspaces untuk frontend/backend, concurrently |
 
 ---
 
@@ -77,7 +80,7 @@ dijalankan bersamaan di **satu terminal** lewat `npm run dev:all`.
 │       ├── services/            # Layanan (push notification FCM)
 │       └── utils/               # JWT, geofencing, notifier, mailer, report, dsb
 │
-├── mobile/                      # Aplikasi mobile pegawai — Flutter (di luar workspace npm)
+├── mobile/                      # Aplikasi mobile pegawai — Flutter (repo sama, di luar workspace npm)
 │
 └── .local/                      # Berkas lokal saja (di-.gitignore), mis. dokumen PA
 ```
@@ -85,6 +88,10 @@ dijalankan bersamaan di **satu terminal** lewat `npm run dev:all`.
 ---
 
 ## 🚀 Cara Menjalankan
+
+Repo ini memuat tiga proyek: `frontend`, `backend`, dan `mobile`. Langkah
+berikut menyiapkan website dan API; setup aplikasi Flutter ada di
+[`mobile/README.md`](mobile/README.md).
 
 ### Prasyarat
 
@@ -253,7 +260,7 @@ menambahkan dependency aplikasi di root.
   frontend.
 - **Upload file** backend disimpan di `backend/uploads/`.
 - Dokumentasi detail tiap bagian ada di `backend/README.md` dan
-  `frontend/README.md`.
+  `frontend/README.md`. Panduan aplikasi Flutter ada di `mobile/README.md`.
 - Logo BUMDESMA punya satu berkas sumber: `mobile/assets/images/podo-rukun.png`
   (dipakai app Flutter + generator launcher icon). Web memakai turunan
   teroptimasi `frontend/src/assets/podo-rukun.webp` — dipakai Sidebar/Login dan
