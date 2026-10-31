@@ -85,16 +85,47 @@ export function IndonesianDatePicker({
   const wrapperRef = useRef(null);
 
   const baseDate = value ? parseISO(value) : new Date();
-  const [viewYear, setViewYear] = useState(baseDate.getFullYear());
-  const [viewMonth, setViewMonth] = useState(baseDate.getMonth());
+  // Bulan/tahun yang ditampilkan diturunkan dari `value`: state `nav` hanya
+  // berlaku selama `value` belum berubah. Jadi reset/pengisian value dari luar
+  // (mis. buka form edit) otomatis me-reset tampilan kalender tanpa
+  // useEffect + setState di dalam effect (react-hooks/set-state-in-effect).
+  const viewKey = value || "";
+  const [nav, setNav] = useState(() => ({
+    key: viewKey,
+    year: baseDate.getFullYear(),
+    month: baseDate.getMonth(),
+  }));
+  const view =
+    nav.key === viewKey
+      ? nav
+      : { key: viewKey, year: baseDate.getFullYear(), month: baseDate.getMonth() };
+  const viewYear = view.year;
+  const viewMonth = view.month;
 
-  // Sinkron view kalau value berubah dari luar (mis. reset form).
-  useEffect(() => {
-    if (!value) return;
-    const d = parseISO(value);
-    setViewYear(d.getFullYear());
-    setViewMonth(d.getMonth());
-  }, [value]);
+  // Navigasi bulan/tahun hanya mengubah state `nav` (dianggap masih milik
+  // `value` saat ini), memakai updater agar dua panggilan berurutan (mis.
+  // Desember -> tahun sebelumnya) tetap konsisten.
+  function setViewMonth(next) {
+    setNav((prev) => {
+      const cur = prev.key === viewKey ? prev : view;
+      return {
+        key: viewKey,
+        month: typeof next === "function" ? next(cur.month) : next,
+        year: cur.year,
+      };
+    });
+  }
+
+  function setViewYear(next) {
+    setNav((prev) => {
+      const cur = prev.key === viewKey ? prev : view;
+      return {
+        key: viewKey,
+        month: cur.month,
+        year: typeof next === "function" ? next(cur.year) : next,
+      };
+    });
+  }
 
   useEffect(() => {
     function handleClickOutside(e) {

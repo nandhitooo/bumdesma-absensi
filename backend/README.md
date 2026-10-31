@@ -65,9 +65,42 @@ backend/
 │   └── utils/                   # JWT, geofencing, notifier, response, dsb
 ├── docs/                       # Dokumentasi per modul (lihat docs/piket.md)
 └── uploads/
-    ├── qrcode/                  # Gambar QR Code hasil generate
-    └── surat-izin/               # Lampiran surat izin/cuti pegawai
+    ├── qrcode/                   # Gambar QR Code hasil generate
+    └── surat-izin/               # Lampiran izin/cuti, dipisah per kategori
+        ├── sakit/
+        ├── izin/
+        ├── cuti/
+        └── _tmp/                 # staging multer, dipindah ke kategori setelah validasi
 ```
+
+Merapikan lampiran lama ke folder kategori (idempotent; dry-run dulu, lalu terapkan):
+
+```bash
+# dari root monorepo (script root mem-proxy ke workspace backend)
+npm run attachments:migrate            # dry-run: tampilkan rencana pemindahan
+npm run attachments:migrate -- --apply # benar-benar pindahkan + update database
+
+# atau langsung di workspace backend
+npm run attachments:migrate -w backend
+cd backend && npm run attachments:migrate -- --apply
+```
+
+Semua script npm backend dan cara memanggilnya dari root monorepo:
+
+| Script | Dari root monorepo | Fungsi |
+| --- | --- | --- |
+| `dev` | `npm run dev:backend` | Nodemon + `server.js` (auto-reload) |
+| `start` | `npm start` | Produksi (`node server.js`, tanpa reload) |
+| `db:create` | `npm run db:create -w backend` | Buat database |
+| `db:migrate` | `npm run db:migrate` | Jalankan migrasi |
+| `db:migrate:undo` | `npm run db:migrate:undo -w backend` | Rollback migrasi terakhir |
+| `db:seed` | `npm run db:seed` | Isi data awal |
+| `db:seed:undo` | `npm run db:seed:undo -w backend` | Rollback seeder |
+| `db:reset` | `npm run db:reset -w backend` | Undo all + migrate + seed |
+| `push:check` | `npm run push:check -w backend` | Cek konfigurasi push notification (FCM) |
+| `attachments:migrate` | `npm run attachments:migrate` | Rapikan lampiran ke folder kategori (tambah `-- --apply` untuk menerapkan) |
+| `test` | `npm test` | Test backend (`node --test`) |
+| `test:backup` | `npm run test:backup -w backend` | Test khusus backup/restore |
 
 ## Skema Database
 

@@ -3,8 +3,8 @@ import Topbar from "../components/Topbar";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 import Pagination from "../components/Pagination";
 import api, { getErrorMessage } from "../lib/api";
-import { useAuth } from "../context/AuthContext";
-import { useModal } from "../context/ModalContext";
+import { useAuth } from "../context/useAuth";
+import { useModal } from "../context/useModal";
 
 const PAGE_SIZE = 10;
 

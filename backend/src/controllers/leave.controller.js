@@ -11,6 +11,7 @@ const {
   NOTIFICATION_TYPE,
   LEAVE_TYPE,
 } = require("../utils/constants");
+const { pindahkanKeKategori } = require("../middlewares/upload.middleware");
 
 // Multer's disk storage writes the uploaded file BEFORE this controller
 // ever runs — it happens in the upload.middleware.js layer, ahead of any
@@ -68,8 +69,9 @@ const create = async (req, res) => {
       tanggal_mulai,
       tanggal_selesai,
       alasan,
+      // Lampiran disimpan per kategori: /uploads/surat-izin/<jenis>/<file>
       file_lampiran: req.file
-        ? `/uploads/surat-izin/${req.file.filename}`
+        ? `/uploads/${pindahkanKeKategori(req.file, jenis)}`
         : null,
       status: LEAVE_STATUS.PENDING,
     });

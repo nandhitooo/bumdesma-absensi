@@ -8,8 +8,16 @@ secrets/
 *firebase-adminsdk*.json
 *service-account*.json
 
+# Lampiran disimpan per kategori (izin/sakit/cuti) + folder staging sementara.
 uploads/surat-izin/*
 !uploads/surat-izin/.gitkeep
+!uploads/surat-izin/izin/
+!uploads/surat-izin/sakit/
+!uploads/surat-izin/cuti/
+uploads/surat-izin/izin/*
+uploads/surat-izin/sakit/*
+uploads/surat-izin/cuti/*
+!uploads/surat-izin/*/.gitkeep
 uploads/qrcode/*
 !uploads/qrcode/.gitkeep
 *.log

@@ -7,8 +7,8 @@ import {
 import AktivitasLogCard from "../components/AktivitasLogCard";
 import BackupCard from "../components/BackupCard";
 import api, { getErrorMessage, FILE_BASE_URL } from "../lib/api";
-import { useAuth } from "../context/AuthContext";
-import { useModal } from "../context/ModalContext";
+import { useAuth } from "../context/useAuth";
+import { useModal } from "../context/useModal";
 
 function ModalWrapper({
   title,

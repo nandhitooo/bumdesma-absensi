@@ -1,7 +1,7 @@
 import { lazy, Suspense, useState } from "react";
 import Login from "./pages/Login";
 import Sidebar from "./components/Sidebar";
-import { useAuth } from "./context/AuthContext";
+import { useAuth } from "./context/useAuth";
 
 // Code-splitting: tiap halaman jadi chunk terpisah, dimuat saat dipakai.
 // Login tetap eager supaya layar pertama tidak menunggu chunk lain.

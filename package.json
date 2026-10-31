@@ -16,7 +16,8 @@
     "lint": "npm run lint --workspace frontend",
     "test": "npm run test --workspace backend",
     "db:migrate": "npm run db:migrate --workspace backend",
-    "db:seed": "npm run db:seed --workspace backend"
+    "db:seed": "npm run db:seed --workspace backend",
+    "attachments:migrate": "npm run attachments:migrate --workspace backend --"
   },
   "devDependencies": {
     "concurrently": "^9.1.2"

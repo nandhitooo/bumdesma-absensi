@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Topbar from "../components/Topbar";
 import api, { getErrorMessage } from "../lib/api";
-import { useModal } from "../context/ModalContext";
+import { useModal } from "../context/useModal";
 
 export default function Dashboard() {
   const { alert } = useModal();

@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import Topbar from "../components/Topbar";
 import Pagination from "../components/Pagination";
 import api, { getErrorMessage, FILE_BASE_URL } from "../lib/api";
-import { useAuth } from "../context/AuthContext";
-import { useModal } from "../context/ModalContext";
+import { useAuth } from "../context/useAuth";
+import { useModal } from "../context/useModal";
 
 const PAGE_SIZE = 10;
 

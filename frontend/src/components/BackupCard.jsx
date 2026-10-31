@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import api, { getErrorMessage } from "../lib/api";
-import { useAuth } from "../context/AuthContext";
-import { useModal } from "../context/ModalContext";
+import { useAuth } from "../context/useAuth";
+import { useModal } from "../context/useModal";
 
 const TABLE_LABELS = {
   admin_accounts: "Akun Admin/Pimpinan",
@@ -27,7 +27,9 @@ export default function BackupCard() {
   const isAdmin = user?.role === "admin";
 
   const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
+  // Pimpinan tidak memuat statistik sama sekali, jadi status loading langsung
+  // false — supaya effect di bawah tidak perlu memanggil setState sinkron.
+  const [loading, setLoading] = useState(isAdmin);
   const [downloading, setDownloading] = useState(false);
 
   // Restore: file terpilih + teks konfirmasi (harus persis "RESTORE").
@@ -36,18 +38,7 @@ export default function BackupCard() {
   const [restoring, setRestoring] = useState(false);
   const fileInputRef = useRef(null);
 
-  useEffect(() => {
-    if (!isAdmin) {
-      setLoading(false);
-      return;
-    }
-    // Microtask: setLoading tidak boleh jalan sinkron di badan effect
-    // (rule react-hooks/set-state-in-effect).
-    Promise.resolve().then(loadStats);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAdmin]);
-
-  const loadStats = async () => {
+  const loadStats = useCallback(async () => {
     setLoading(true);
     try {
       const res = await api.get("/backup/stats");
@@ -60,7 +51,20 @@ export default function BackupCard() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [alert]);
+
+  useEffect(() => {
+    if (!isAdmin) return undefined;
+    // Defer ke microtask agar setState di dalam loadStats tidak terjadi
+    // sinkron di badan effect (react-hooks/set-state-in-effect).
+    let cancelled = false;
+    Promise.resolve().then(() => {
+      if (!cancelled) loadStats();
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isAdmin, loadStats]);
 
   const handlePickRestoreFile = (e) => {
     const f = e.target.files?.[0] || null;

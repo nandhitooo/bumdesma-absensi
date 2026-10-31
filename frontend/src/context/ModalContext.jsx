@@ -1,6 +1,5 @@
-import { createContext, useCallback, useContext, useState } from "react";
-
-const ModalContext = createContext(null);
+import { useCallback, useState } from "react";
+import { ModalContext } from "./useModal";
 
 // Menampilkan popup modal (bukan browser alert()/confirm() bawaan) di atas
 // seluruh halaman. alert() mengembalikan Promise<void> yang selesai saat
@@ -120,10 +119,4 @@ function AppModal({
       </div>
     </div>
   );
-}
-
-export function useModal() {
-  const ctx = useContext(ModalContext);
-  if (!ctx) throw new Error("useModal harus dipakai di dalam <ModalProvider>");
-  return ctx;
 }

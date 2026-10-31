@@ -13,6 +13,7 @@
     "db:seed:undo": "sequelize-cli db:seed:undo:all",
     "db:reset": "sequelize-cli db:migrate:undo:all && sequelize-cli db:migrate && sequelize-cli db:seed:all",
     "push:check": "node scripts/check-push.js",
+    "attachments:migrate": "node scripts/migrate-leave-attachments.js",
     "test": "node --test",
     "test:backup": "node --test tests/backup-restore.test.js"
   },

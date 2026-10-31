@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api, { getErrorMessage } from "../lib/api";
-import { useModal } from "../context/ModalContext";
+import { useModal } from "../context/useModal";
 import SaturdayPicker from "./SaturdayPicker";
 
 // Sabtu terdekat (hari ini kalau kebetulan Sabtu). Dipakai sebagai tampilan

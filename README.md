@@ -64,7 +64,7 @@ dijalankan bersamaan di **satu terminal** lewat `npm run dev:all`.
 │   ├── scripts/                 # Script bantu (check-push.js)
 │   ├── tests/                   # Test Node --test (backup-restore, piket-rotation)
 │   ├── secrets/                 # Kredensial Firebase (tidak di-commit)
-│   ├── uploads/                 # File unggahan (surat izin, QR code)
+│   ├── uploads/                 # Unggahan: surat izin per kategori + QR code
 │   └── src/
 │       ├── app.js               # Konfigurasi Express (middleware, route)
 │       ├── config/              # Koneksi DB, config Sequelize CLI, validasi env
@@ -149,6 +149,7 @@ Jalankan dari **root** monorepo.
 | `test` | `npm test` | Test backend (`node --test`) |
 | `db:migrate` | `npm run db:migrate` | Jalankan migrasi Sequelize |
 | `db:seed` | `npm run db:seed` | Isi data awal (seeder) |
+| `attachments:migrate` | `npm run attachments:migrate` | Rapikan lampiran izin/cuti lama ke folder kategori (dry-run; tambah `-- --apply` untuk menerapkan) |
 
 ### Script per-workspace
 
@@ -163,6 +164,7 @@ npm run db:seed:undo -w backend   # rollback seeder
 npm run db:reset     -w backend   # undo all + migrate + seed
 npm run push:check   -w backend   # cek konfigurasi push notification (FCM)
 npm run test:backup  -w backend   # test khusus backup/restore
+npm run attachments:migrate        # rapikan lampiran izin/cuti lama (dry-run, tambah -- --apply)
 
 # Frontend
 npm run preview      -w frontend  # preview hasil build
@@ -252,6 +254,10 @@ menambahkan dependency aplikasi di root.
 - **Upload file** backend disimpan di `backend/uploads/`.
 - Dokumentasi detail tiap bagian ada di `backend/README.md` dan
   `frontend/README.md`.
+- Logo BUMDESMA punya satu berkas sumber: `mobile/assets/images/podo-rukun.png`
+  (dipakai app Flutter + generator launcher icon). Web memakai turunan
+  teroptimasi `frontend/src/assets/podo-rukun.webp` — dipakai Sidebar/Login dan
+  juga sebagai favicon, jadi tidak ada salinan PNG lain di repo.
 
 ---
 

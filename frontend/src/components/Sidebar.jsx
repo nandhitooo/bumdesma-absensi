@@ -1,6 +1,6 @@
 import PodoRukunLogo from "../assets/podo-rukun.webp";
-import { useAuth } from "../context/AuthContext";
-import { useModal } from "../context/ModalContext";
+import { useAuth } from "../context/useAuth";
+import { useModal } from "../context/useModal";
 
 const navItems = [
   {

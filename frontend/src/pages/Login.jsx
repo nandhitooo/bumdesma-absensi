@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PodoRukunLogo from "../assets/podo-rukun.webp";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/useAuth";
 
 export default function Login() {
   const { login } = useAuth();

@@ -2,8 +2,8 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Pagination from "./Pagination";
 import { IndonesianDatePicker } from "./IndonesianDatePickers";
 import api, { getErrorMessage } from "../lib/api";
-import { useAuth } from "../context/AuthContext";
-import { useModal } from "../context/ModalContext";
+import { useAuth } from "../context/useAuth";
+import { useModal } from "../context/useModal";
 
 const PAGE_SIZE = 15;
 

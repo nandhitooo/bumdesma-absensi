@@ -81,6 +81,7 @@ Buka browser dan akses: `http://localhost:5173`
 ```bash
 npm run build -w frontend    # hasil build -> frontend/dist
 npm run preview -w frontend  # cek hasil build secara lokal
+npm run lint -w frontend     # ESLint untuk kode frontend
 ```
 
 ### Menambah dependency
