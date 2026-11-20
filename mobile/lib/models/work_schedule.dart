@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Mirrors Tabel 3.1 (Work Schedule) and the Pengaturan page: jam kerja
 /// reguler, batas toleransi keterlambatan, serta konfigurasi geofencing.
@@ -29,8 +29,10 @@ class WorkSchedule {
 
   String get jamMasukLabel => _fmt(jamMasuk);
   String get jamPulangLabel => _fmt(jamPulang);
-  String? get sabtuJamMasukLabel => sabtuJamMasuk != null ? _fmt(sabtuJamMasuk!) : null;
-  String? get sabtuJamPulangLabel => sabtuJamPulang != null ? _fmt(sabtuJamPulang!) : null;
+  String? get sabtuJamMasukLabel =>
+      sabtuJamMasuk != null ? _fmt(sabtuJamMasuk!) : null;
+  String? get sabtuJamPulangLabel =>
+      sabtuJamPulang != null ? _fmt(sabtuJamPulang!) : null;
 
   static String _fmt(TimeOfDay t) =>
       '${t.hour.toString().padLeft(2, '0')}:${t.minute.toString().padLeft(2, '0')}';

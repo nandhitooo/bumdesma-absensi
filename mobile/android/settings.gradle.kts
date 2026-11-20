@@ -19,11 +19,11 @@ pluginManagement {
 
 plugins {
     id("dev.flutter.flutter-plugin-loader") version "1.0.0"
-    // AGP tetap di 8.x: AGP 9.x mematahkan beberapa plugin Flutter.
-    // Konsekuensinya Gradle wrapper WAJIB < 9.6 (Gradle 9.6 menghapus
-    // InternalProblems yang masih dipakai AGP 8.x) — lihat README.
-    id("com.android.application") version "8.13.1" apply false
-    id("org.jetbrains.kotlin.android") version "2.2.20" apply false
+    // Flutter 3.50.0 (SDK di mesin Windows ini) mewajibkan AGP >= 9.1.1 dan
+    // Gradle >= 9.5.0; AGP 8.13.1 gagal saat apply flutter-gradle-plugin.
+    // Versi di bawah = default template `flutter create` Flutter 3.50.0.
+    id("com.android.application") version "9.3.1" apply false
+    id("org.jetbrains.kotlin.android") version "2.4.20" apply false
     // Firebase Cloud Messaging (push notifikasi ke notif bar HP).
     id("com.google.gms.google-services") version "4.4.4" apply false
 }

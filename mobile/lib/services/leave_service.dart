@@ -1,3 +1,5 @@
+import 'package:file_picker/file_picker.dart';
+
 import '../models/leave_request.dart';
 
 /// Handles Pengajuan Izin/Cuti (Gambar 3.25): pegawai mengisi tanggal,
@@ -18,10 +20,9 @@ abstract class LeaveService {
     required DateTime startDate,
     required DateTime endDate,
     required String reason,
-    // Full local filesystem path of the picked attachment (e.g. from
-    // file_picker's PlatformFile.path), NOT just the display filename.
-    // HttpLeaveService needs the real path to open the file for upload.
-    String? attachmentPath,
+    // File lampiran hasil file_picker apa adanya (nama + bytes/path).
+    // HttpLeaveService membaca isinya lewat helper platform (native/web).
+    PlatformFile? attachment,
   });
 
   Future<bool> isOnApprovedLeave(String nip, DateTime date);
@@ -46,7 +47,7 @@ class MockLeaveService implements LeaveService {
     required DateTime startDate,
     required DateTime endDate,
     required String reason,
-    String? attachmentPath,
+    PlatformFile? attachment,
   }) async {
     await Future.delayed(const Duration(milliseconds: 400));
 
@@ -56,7 +57,7 @@ class MockLeaveService implements LeaveService {
       startDate: startDate,
       endDate: endDate,
       reason: reason,
-      attachmentFileName: attachmentPath,
+      attachmentFileName: attachment?.name,
       submittedAt: DateTime.now(),
       status: LeaveStatus.menunggu,
     );

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io' show SocketException;
 
 import 'package:flutter/material.dart';
 
@@ -18,11 +17,12 @@ import '../services/fcm_push_service.dart';
 /// konfigurasi aktif — localhost + adb reverse (HP fisik), 10.0.2.2
 /// (emulator), atau IP LAN (Wi-Fi).
 String _friendlyError(Object e, {required String fallback}) {
-  // SocketException (dart:io) = koneksi gagal total. ClientException
-  // (package http) = koneksi terputus di tengah request; dideteksi via
-  // string supaya tidak perlu import package:http hanya untuk tipe ini.
-  final isConnectionFailure =
-      e is SocketException || e.toString().contains('ClientException');
+  // SocketException (native) / ClientException (package http) = koneksi
+  // gagal total atau terputus di tengah request. Dideteksi lewat string
+  // supaya file ini tetap bisa dikompilasi untuk web (tanpa dart:io).
+  final errorText = e.toString();
+  final isConnectionFailure = errorText.contains('SocketException') ||
+      errorText.contains('ClientException');
   if (!isConnectionFailure) return fallback;
 
   final url = ApiClient.instance.baseUrl;

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 /// Color palette and design tokens for BUMDESMA Podo Rukun LKD Mobile
 /// Modernized with refined emerald greens, clean slate backgrounds,
@@ -112,30 +112,23 @@ class AppShadows {
   AppShadows._();
 
   static const List<BoxShadow> soft = [
-    BoxShadow(
-      color: Color(0x080F3D36),
-      blurRadius: 10,
-      offset: Offset(0, 4),
-    ),
+    BoxShadow(color: Color(0x080F3D36), blurRadius: 10, offset: Offset(0, 4)),
   ];
 
   static const List<BoxShadow> medium = [
-    BoxShadow(
-      color: Color(0x120F3D36),
-      blurRadius: 18,
-      offset: Offset(0, 6),
-    ),
+    BoxShadow(color: Color(0x120F3D36), blurRadius: 18, offset: Offset(0, 6)),
   ];
 
   static const List<BoxShadow> elevated = [
-    BoxShadow(
-      color: Color(0x1A0F3D36),
-      blurRadius: 24,
-      offset: Offset(0, 10),
-    ),
+    BoxShadow(color: Color(0x1A0F3D36), blurRadius: 24, offset: Offset(0, 10)),
   ];
 
-  static List<BoxShadow> colored(Color color, {double opacity = 0.28, double blur = 14, Offset offset = const Offset(0, 5)}) {
+  static List<BoxShadow> colored(
+    Color color, {
+    double opacity = 0.28,
+    double blur = 14,
+    Offset offset = const Offset(0, 5),
+  }) {
     return [
       BoxShadow(
         color: color.withValues(alpha: opacity),
@@ -245,7 +238,11 @@ class AppTheme {
       ),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.textPrimary,
-        contentTextStyle: const TextStyle(color: Colors.white, fontSize: 13.5, fontWeight: FontWeight.w500),
+        contentTextStyle: const TextStyle(
+          color: Colors.white,
+          fontSize: 13.5,
+          fontWeight: FontWeight.w500,
+        ),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppRadius.md),
@@ -272,10 +269,19 @@ class AppTheme {
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: AppColors.surface,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 15),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 15,
+        ),
         hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 13.5),
-        labelStyle: const TextStyle(color: AppColors.textSecondary, fontSize: 13.5),
-        floatingLabelStyle: const TextStyle(color: AppColors.primary, fontWeight: FontWeight.w600),
+        labelStyle: const TextStyle(
+          color: AppColors.textSecondary,
+          fontSize: 13.5,
+        ),
+        floatingLabelStyle: const TextStyle(
+          color: AppColors.primary,
+          fontWeight: FontWeight.w600,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(AppRadius.md),
           borderSide: const BorderSide(color: AppColors.cardBorder, width: 1.2),
@@ -323,7 +329,10 @@ class AppTheme {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppRadius.md),
           ),
-          textStyle: const TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700),
+          textStyle: const TextStyle(
+            fontSize: 14.5,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       textButtonTheme: TextButtonThemeData(

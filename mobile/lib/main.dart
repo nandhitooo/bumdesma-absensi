@@ -1,11 +1,12 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart' show kDebugMode;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 // DevicePreview hanya di-wrap saat debug (release build tidak membungkus
 // app dengan overlay preview sama sekali).
-import 'package:device_preview/device_preview.dart' if (dart.library.io) 'package:device_preview/device_preview.dart';
+import 'package:device_preview/device_preview.dart'
+    if (dart.library.io) 'package:device_preview/device_preview.dart';
 import 'core/env/env.dart';
 import 'services/fcm_push_service.dart';
 import 'core/theme/app_theme.dart';

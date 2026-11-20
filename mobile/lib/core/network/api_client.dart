@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+import 'package:file_picker/file_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
@@ -82,7 +82,7 @@ class ApiClient {
   Future<dynamic> postMultipart(
     String path, {
     required Map<String, String> fields,
-    File? file,
+    PlatformFile? file,
     String fileField = 'file',
     bool isRetry = false,
   }) async {
@@ -97,11 +97,14 @@ class ApiClient {
       // the file's real extension. The backend's mimetype allow-list then
       // rejects it with "Format file tidak didukung" even for a valid
       // .pdf/.docx. Look the real MIME type up from the filename instead.
-      final mimeType = lookupMimeType(file.path) ?? 'application/octet-stream';
+      // PlatformFile.readAsBytes() dipakai (bukan path file) supaya upload
+      // juga jalan di Flutter web, yang tidak punya path file asli.
+      final mimeType = lookupMimeType(file.name) ?? 'application/octet-stream';
       request.files.add(
-        await http.MultipartFile.fromPath(
+        http.MultipartFile.fromBytes(
           fileField,
-          file.path,
+          await file.readAsBytes(),
+          filename: file.name,
           contentType: MediaType.parse(mimeType),
         ),
       );

@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:file_picker/file_picker.dart';
 import 'package:intl/intl.dart';
 
 import '../core/network/api_client.dart';
@@ -27,7 +26,7 @@ class HttpLeaveService implements LeaveService {
     required DateTime startDate,
     required DateTime endDate,
     required String reason,
-    String? attachmentPath,
+    PlatformFile? attachment,
   }) async {
     final fields = {
       'jenis': _typeToJson(type),
@@ -36,9 +35,8 @@ class HttpLeaveService implements LeaveService {
       'alasan': reason,
     };
 
-    final file = attachmentPath != null ? File(attachmentPath) : null;
-
-    final res = await _api.postMultipart('/leaves', fields: fields, file: file);
+    final res =
+        await _api.postMultipart('/leaves', fields: fields, file: attachment);
     return _fromJson(res['data'] as Map<String, dynamic>);
   }
 

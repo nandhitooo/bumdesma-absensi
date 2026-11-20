@@ -66,6 +66,9 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
     final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf', 'docx'],
+      // Isi file ikut dimuat supaya upload juga jalan di Flutter web
+      // (browser tidak memberi path file asli).
+      withData: true,
     );
     if (result.isNotEmpty) {
       setState(() => _attachment = result.first);
@@ -97,7 +100,7 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
         startDate: _startDate!,
         endDate: _endDate!,
         reason: _reasonController.text.trim(),
-        attachmentPath: _attachment?.path,
+        attachment: _attachment,
       );
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(

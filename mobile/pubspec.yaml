@@ -8,11 +8,12 @@ version: 1.0.0+1
 environment:
   # Lower bound = constraint Dart tertinggi yang diminta dependency yang
   # ter-resolve (google_maps_flutter_android & shared_preferences_android
-  # minta >=3.12.0). Toolchain uji: Dart 3.13.5 / Flutter 3.47.7.
+  # minta >=3.12.0). Toolchain uji: Dart 3.14.0 / Flutter 3.50.0.
   sdk: ">=3.12.0 <4.0.0"
-  # Upper bound sengaja dipaku ke Flutter yang benar-benar diuji, supaya build
-  # tidak diam-diam pindah ke Flutter lebih baru (mis. template AGP 9.x).
-  flutter: ">=3.44.0 <=3.47.7"
+  # Upper bound sengaja dipaku ke Flutter yang benar-benar diuji (mesin
+  # Windows ini: Flutter 3.50.0, AGP 9.3.1, Gradle 9.5.0), supaya build tidak
+  # diam-diam pindah ke Flutter lebih baru.
+  flutter: ">=3.44.0 <=3.50.0"
 
 dependencies:
   flutter:

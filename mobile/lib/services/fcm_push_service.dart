@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io' show Platform;
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -54,10 +53,16 @@ class FcmPushService {
 
   bool get started => _started;
 
+  /// Push FCM hanya didukung Android/iOS. Di web tidak ada konfigurasi
+  /// Firebase web di proyek ini, jadi seluruh alur push dilewati.
+  bool get _isAndroid =>
+      !kIsWeb && defaultTargetPlatform == TargetPlatform.android;
+
   String _channelIdFor(String? type) =>
       type == _channelPiket ? _channelPiket : _channelIzinCuti;
 
   Future<void> start({required String nip}) async {
+    if (kIsWeb) return;
     if (!Env.pushNotificationsEnabled || nip.isEmpty) return;
     if (_started && _nip == nip) return;
     if (_started) await stop();
@@ -171,7 +176,7 @@ class FcmPushService {
   }
 
   Future<void> _createAndroidChannels() async {
-    if (!Platform.isAndroid) return;
+    if (!_isAndroid) return;
     final plugin = _localNotifications
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>();
@@ -212,7 +217,7 @@ class FcmPushService {
       await ApiClient.instance.post('/push/register', body: {
         'nip': nip,
         'token': token,
-        'platform': Platform.isAndroid ? 'android' : 'ios',
+        'platform': _isAndroid ? 'android' : 'ios',
       });
     } catch (_) {
       // Registrasi ulang terjadi otomatis di next onTokenRefresh/login.

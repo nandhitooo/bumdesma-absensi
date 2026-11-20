@@ -50,14 +50,16 @@ native_setup/           # panduan + snippet untuk wiring key Maps ke Android/iOS
 
 ### 1. Prasyarat
 
-- **Flutter 3.47.7** (channel stable) dengan **Dart 3.13.5** — versi inilah
+- **Flutter 3.50.0** (channel stable) dengan **Dart 3.14.0** — versi inilah
   yang dipakai untuk `flutter analyze` dan `flutter build apk --debug`
-  terakhir. `pubspec.yaml` memaku Flutter ke `>=3.44.0 <=3.47.7` (3.44.0
-  adalah constraint Flutter tertinggi yang diminta dependency yang
-  ter-resolve, mis. `google_maps_flutter_android`). Jalankan
-  `flutter doctor` dulu untuk memastikan environment kamu siap.
-- **JDK 17** (diuji dengan OpenJDK 17.0.20.1) untuk build Android. Wajib diset
-  lewat `flutter config --jdk-dir`, **bukan** `JAVA_HOME` dan **bukan**
+  terakhir (mesin Windows saat ini). `pubspec.yaml` memaku Flutter ke
+  `>=3.44.0 <=3.50.0` (3.44.0 adalah constraint Flutter tertinggi yang
+  diminta dependency yang ter-resolve, mis. `google_maps_flutter_android`).
+  Jalankan `flutter doctor` dulu untuk memastikan environment kamu siap.
+- **JDK 17+** untuk build Android. Mesin Windows saat ini memakai JDK bawaan
+  Android Studio (JBR 25) tanpa konfigurasi tambahan, dan
+  `flutter build apk --debug` berhasil. Kalau perlu memilih JDK lain, set lewat
+  `flutter config --jdk-dir`, **bukan** `JAVA_HOME` dan **bukan**
   `android/gradle.properties`:
 
   ```bash
@@ -69,19 +71,18 @@ native_setup/           # panduan + snippet untuk wiring key Maps ke Android/iOS
 
   Alasannya, urutan pencarian JDK di Flutter (`flutter_tools/lib/src/android/java.dart`)
   adalah: `flutter config --jdk-dir` → **JDK bawaan Android Studio** →
-  `JAVA_HOME` → `java` di PATH. Artinya `JAVA_HOME` **kalah** oleh JBR Android
-  Studio (di mesin uji JBR-nya Java 25, jadi tanpa `jdk-dir` Gradle jalan
-  dengan Java 25 dan build gagal).
-  Cek JDK yang benar-benar dipakai: `flutter doctor -v` → baris `Java binary at:`.
-- Toolchain Android di repo: **Gradle 9.3.1**, **AGP 8.13.1**, **Kotlin 2.2.20**,
-  `compileSdk`/`targetSdk` 36, `ndkVersion` mengikuti `flutter.ndkVersion`
-  (28.2.13676358 untuk Flutter 3.47.7).
-  - AGP sengaja di jalur 8.x: AGP 9.x mematahkan beberapa plugin Flutter.
-  - Gradle **jangan** dinaikkan ke 9.6+ selama AGP masih 8.x — Gradle 9.6
-    menghapus `org.gradle.api.problems.internal.InternalProblems` yang masih
-    dipakai AGP 8.x, build langsung gagal dengan
-    "a Gradle internal API that was removed in Gradle 9.6.0". 9.3.1 = versi
-    yang dipakai template `flutter create` di Flutter 3.47.7.
+  `JAVA_HOME` → `java` di PATH, jadi `JAVA_HOME` **kalah** oleh JBR Android
+  Studio. Cek JDK yang benar-benar dipakai: `flutter doctor -v` → baris
+  `Java binary at:`.
+- Toolchain Android di repo: **Gradle 9.5.0**, **AGP 9.3.1**, **Kotlin 2.4.20**,
+  `compileSdk` 37, `targetSdk` 36, `ndkVersion` 30.0.16248370.
+  - Angka di atas = default template `flutter create` Flutter 3.50.0, karena
+    Flutter 3.50 mewajibkan AGP >= 9.1.1 dan Gradle >= 9.5.0 (AGP 8.13.1
+    gagal saat apply `dev.flutter.flutter-gradle-plugin`).
+  - `compileSdk` 37 dan NDK 30.0.16248370 mengikuti yang terpasang di mesin
+    Windows ini; Flutter 3.50 default-nya compileSdk 36 / NDK 28.2.13676358.
+  - `android.newDsl=false` dan `android.builtInKotlin=false` dipertahankan
+    supaya DSL lama tetap dipakai.
 
 - Copy `.env` dari `.env.example` kalau clone baru — `.env` di-`.gitignore`,
   dan `flutter_dotenv` akan error saat app start kalau asset-nya tidak ada.
@@ -140,6 +141,22 @@ berdasarkan nama paket Android / bundle ID iOS dan API yang diizinkan
 flutter run
 ```
 
+Di PC Windows ini (tanpa emulator Android dan tanpa Visual Studio untuk
+desktop), jalankan versi web di Chrome:
+
+```bash
+cd mobile
+flutter run -d chrome --web-port 5599
+```
+
+Halaman terbuka di `http://localhost:5599`. Dukungan web ditambahkan lewat
+`flutter create --platforms=web .`; lampiran izin/cuti tetap bisa diunggah
+di web (file dibaca sebagai bytes, bukan path), dan push FCM otomatis
+dilewati. Untuk login, backend harus berjalan dan `API_BASE_URL` di `.env`
+mengarah ke `http://localhost:5000` (browser tidak bisa memakai
+`adb reverse`); bila `CORS_ORIGINS` backend diisi, tambahkan origin
+`http://localhost:5599`.
+
 ## Menghubungkan app ke backend
 
 `API_BASE_URL` di `.env` harus menunjuk ke backend yang benar — nilainya
@@ -189,11 +206,17 @@ Proyek ini dikerjakan di dua OS. Ada 2 hal yang **wajib** dijaga:
    absolut OS sebelumnya (`.flutter-plugins-dependencies` contohnya menunjuk
    ke pub cache Windows `C:\Users\...\Pub\Cache`, sedangkan di CachyOS
    pub cache-nya `~/.pub-cache`).
-3. `android/app/build.gradle.kts` mem-pin `ndkVersion = "30.0.16248370"`
-   (dan `compileSdk`/`targetSdk` 36). Kalau di OS satunya NDK/platform versi
+3. `android/app/build.gradle.kts` mem-pin `ndkVersion = "30.0.16248370"`,
+   `compileSdk` 37, dan `targetSdk` 36. Kalau di OS satunya NDK/platform versi
    itu belum terinstall, Gradle berhenti dengan _“No version of NDK matched”_.
    Install lewat SDK Manager (`sdkmanager "ndk;30.0.16248370"
-"platforms;android-36"`), atau samakan `ndkVersion` di kedua mesin.
+"platforms;android-37"`), atau samakan `ndkVersion` di kedua mesin.
+4. Di Windows tanpa Developer Mode, `flutter clean` menghapus
+   `linux/flutter/ephemeral/.plugin_symlinks`, lalu `flutter pub get` bisa
+   berhenti dengan “Building with plugins requires symlink support”. Aktifkan
+   Developer Mode (`start ms-settings:developers`) — cara yang disarankan
+   Flutter — atau jalankan ulang `flutter pub get`; folder symlink sudah
+   dibuat sehingga percobaan berikutnya lolos.
 
 ```bash
 flutter clean

@@ -18,11 +18,11 @@ if (file("google-services.json").exists()) {
 
 android {
     namespace = "com.bumdesma.absensi_bumdesma"
-    compileSdk = 36
-    // Ikut NDK yang dideklarasikan Flutter SDK (28.2.13676358 untuk Flutter
-    // 3.47.7), bukan versi hardcode per mesin — dulu dipaku "30.0.16248370"
-    // sebagai workaround lokal sehingga build patah di mesin lain.
-    ndkVersion = flutter.ndkVersion
+    // Android SDK di mesin ini hanya punya platform android-37.0.
+    compileSdk = 37
+    // NDK yang terpasang di mesin ini (Flutter 3.50.0 default-nya
+    // 28.2.13676358, yang tidak terpasang dan akan memicu unduhan besar).
+    ndkVersion = "30.0.16248370"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
