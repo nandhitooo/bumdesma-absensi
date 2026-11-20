@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/network/api_client.dart';
 import '../models/user.dart';
@@ -21,7 +21,8 @@ String _friendlyError(Object e, {required String fallback}) {
   // gagal total atau terputus di tengah request. Dideteksi lewat string
   // supaya file ini tetap bisa dikompilasi untuk web (tanpa dart:io).
   final errorText = e.toString();
-  final isConnectionFailure = errorText.contains('SocketException') ||
+  final isConnectionFailure =
+      errorText.contains('SocketException') ||
       errorText.contains('ClientException');
   if (!isConnectionFailure) return fallback;
 
@@ -84,7 +85,9 @@ class AuthProvider extends ChangeNotifier {
         newPassword: newPassword,
         email: email,
       );
-      final resolvedEmail = (email != null && email.isNotEmpty) ? email : _user!.email;
+      final resolvedEmail = (email != null && email.isNotEmpty)
+          ? email
+          : _user!.email;
       _user = _user!.copyWith(
         mustChangePassword: false,
         email: resolvedEmail,

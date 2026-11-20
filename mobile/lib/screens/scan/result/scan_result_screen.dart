@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
@@ -12,7 +12,8 @@ class ScanResultScreen extends StatelessWidget {
 
   bool get _isRejected => !result.success;
 
-  ({Color color, Color surface, IconData icon, String heading, String subtitle}) get _visual {
+  ({Color color, Color surface, IconData icon, String heading, String subtitle})
+  get _visual {
     if (_isRejected) {
       return (
         color: AppColors.danger,
@@ -89,7 +90,10 @@ class ScanResultScreen extends StatelessWidget {
           SafeArea(
             child: Center(
               child: SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 20,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -117,7 +121,10 @@ class ScanResultScreen extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: v.surface,
                               shape: BoxShape.circle,
-                              border: Border.all(color: v.color.withValues(alpha: 0.4), width: 2),
+                              border: Border.all(
+                                color: v.color.withValues(alpha: 0.4),
+                                width: 2,
+                              ),
                               boxShadow: [
                                 BoxShadow(
                                   color: v.color.withValues(alpha: 0.25),
@@ -143,7 +150,9 @@ class ScanResultScreen extends StatelessWidget {
                           Text(
                             v.subtitle,
                             textAlign: TextAlign.center,
-                            style: AppTextStyles.caption.copyWith(fontSize: 12.5),
+                            style: AppTextStyles.caption.copyWith(
+                              fontSize: 12.5,
+                            ),
                           ),
                           const SizedBox(height: 20),
                           if (!_isRejected) ...[
@@ -151,15 +160,24 @@ class ScanResultScreen extends StatelessWidget {
                             const SizedBox(height: 14),
                             if (!isMasuk)
                               Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 14,
+                                  vertical: 8,
+                                ),
                                 decoration: BoxDecoration(
                                   color: AppColors.surfaceAlt,
-                                  borderRadius: BorderRadius.circular(AppRadius.sm),
+                                  borderRadius: BorderRadius.circular(
+                                    AppRadius.sm,
+                                  ),
                                 ),
                                 child: const Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.directions_walk_rounded, size: 16, color: AppColors.textSecondary),
+                                    Icon(
+                                      Icons.directions_walk_rounded,
+                                      size: 16,
+                                      color: AppColors.textSecondary,
+                                    ),
                                     SizedBox(width: 6),
                                     Text(
                                       'Hati-hati di perjalanan pulang ya!',
@@ -178,13 +196,21 @@ class ScanResultScreen extends StatelessWidget {
                               padding: const EdgeInsets.all(16),
                               decoration: BoxDecoration(
                                 color: AppColors.dangerSurface,
-                                borderRadius: BorderRadius.circular(AppRadius.md),
-                                border: Border.all(color: AppColors.dangerBorder),
+                                borderRadius: BorderRadius.circular(
+                                  AppRadius.md,
+                                ),
+                                border: Border.all(
+                                  color: AppColors.dangerBorder,
+                                ),
                               ),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  const Icon(Icons.info_outline_rounded, color: AppColors.danger, size: 20),
+                                  const Icon(
+                                    Icons.info_outline_rounded,
+                                    color: AppColors.danger,
+                                    size: 20,
+                                  ),
                                   const SizedBox(width: 10),
                                   Expanded(
                                     child: Text(
@@ -213,10 +239,13 @@ class ScanResultScreen extends StatelessWidget {
                           foregroundColor: AppColors.primary,
                           elevation: 2,
                         ),
-                        onPressed: () => Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (_) => const MainShell()),
-                          (route) => false,
-                        ),
+                        onPressed: () =>
+                            Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                builder: (_) => const MainShell(),
+                              ),
+                              (route) => false,
+                            ),
                         child: const Text('Kembali ke Beranda'),
                       ),
                     ),
@@ -244,18 +273,34 @@ class ScanResultScreen extends StatelessWidget {
       ),
       child: Column(
         children: [
-          _row('Jenis Presensi', isMasuk ? 'Absen Masuk' : 'Absen Pulang', isFirst: true),
+          _row(
+            'Jenis Presensi',
+            isMasuk ? 'Absen Masuk' : 'Absen Pulang',
+            isFirst: true,
+          ),
           _divider(),
           _row('Hari / Tanggal', '$hari, $tanggal'),
           _divider(),
           _row('Waktu Presensi', '$jam WIB'),
           _divider(),
-          if (isMasuk && result.terlambatMenit != null && result.terlambatMenit! > 0) ...[
-            _row('Terlambat', '${result.terlambatMenit} Menit', valueColor: AppColors.warning),
+          if (isMasuk &&
+              result.terlambatMenit != null &&
+              result.terlambatMenit! > 0) ...[
+            _row(
+              'Terlambat',
+              '${result.terlambatMenit} Menit',
+              valueColor: AppColors.warning,
+            ),
             _divider(),
           ],
-          if (!isMasuk && result.lemburMenit != null && result.lemburMenit! > 0) ...[
-            _row('Lembur', '${result.lemburMenit} Menit', valueColor: AppColors.warning),
+          if (!isMasuk &&
+              result.lemburMenit != null &&
+              result.lemburMenit! > 0) ...[
+            _row(
+              'Lembur',
+              '${result.lemburMenit} Menit',
+              valueColor: AppColors.warning,
+            ),
             _divider(),
           ],
           Padding(
@@ -263,7 +308,13 @@ class ScanResultScreen extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text('Status Validasi', style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+                const Text(
+                  'Status Validasi',
+                  style: TextStyle(
+                    fontSize: 12.5,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
                 StatusBadge(status: result.status, compact: true),
               ],
             ),
@@ -273,15 +324,31 @@ class ScanResultScreen extends StatelessWidget {
     );
   }
 
-  Widget _divider() => const Divider(height: 1, indent: 14, endIndent: 14, color: AppColors.cardBorder);
+  Widget _divider() => const Divider(
+    height: 1,
+    indent: 14,
+    endIndent: 14,
+    color: AppColors.cardBorder,
+  );
 
-  Widget _row(String label, String value, {bool isFirst = false, Color? valueColor}) {
+  Widget _row(
+    String label,
+    String value, {
+    bool isFirst = false,
+    Color? valueColor,
+  }) {
     return Padding(
       padding: EdgeInsets.fromLTRB(14, isFirst ? 12 : 10, 14, 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(label, style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary)),
+          Text(
+            label,
+            style: const TextStyle(
+              fontSize: 12.5,
+              color: AppColors.textSecondary,
+            ),
+          ),
           Text(
             value,
             style: TextStyle(

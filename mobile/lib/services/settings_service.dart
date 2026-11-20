@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/env/env.dart';
 import '../models/piket_assignment.dart';
@@ -59,8 +59,11 @@ class MockSettingsService implements SettingsService {
     // Sabtu terdekat (hari ini kalau kebetulan Sabtu), sebagai contoh giliran.
     final now = DateTime.now();
     final daysUntilSaturday = (DateTime.saturday - now.weekday + 7) % 7;
-    final nextSaturday =
-        DateTime(now.year, now.month, now.day).add(Duration(days: daysUntilSaturday));
+    final nextSaturday = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    ).add(Duration(days: daysUntilSaturday));
     return [PiketAssignment(tanggal: nextSaturday, source: 'rotation')];
   }
 

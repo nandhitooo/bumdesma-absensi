@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -55,8 +55,8 @@ class _ScanSelectScreenState extends State<ScanSelectScreen> {
           _blockedReason =
               'Hari ini merupakan hari libur nasional/cuti bersama. Absensi tidak tersedia.';
         } else if (now.weekday == DateTime.saturday) {
-          final assigned =
-              await SettingsService.instance.isAssignedSaturdayPiket(nip);
+          final assigned = await SettingsService.instance
+              .isAssignedSaturdayPiket(nip);
           _allowedToday = assigned;
           _blockedReason =
               'Hari ini Sabtu dan Anda tidak terdaftar pada jadwal piket, sehingga absensi tidak tersedia.';
@@ -73,9 +73,9 @@ class _ScanSelectScreenState extends State<ScanSelectScreen> {
   }
 
   void _openCamera(ScanType type) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (_) => ScanCameraScreen(scanType: type)),
-    );
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => ScanCameraScreen(scanType: type)));
   }
 
   @override
@@ -95,10 +95,11 @@ class _ScanSelectScreenState extends State<ScanSelectScreen> {
           Expanded(
             child: _loading
                 ? const Center(
-                    child: CircularProgressIndicator(color: AppColors.primary))
+                    child: CircularProgressIndicator(color: AppColors.primary),
+                  )
                 : !_allowedToday
-                    ? _buildNotScheduled()
-                    : _buildOptions(),
+                ? _buildNotScheduled()
+                : _buildOptions(),
           ),
         ],
       ),
@@ -125,8 +126,9 @@ class _ScanSelectScreenState extends State<ScanSelectScreen> {
     final pulangLabel = _schedule != null
         ? 'Jadwal ${_schedule!.jamPulangLabel} WIB'
         : 'Jadwal Pulang';
-    final radiusLabel =
-        _schedule != null ? '${_schedule!.radiusMeters.round()}m' : '50m';
+    final radiusLabel = _schedule != null
+        ? '${_schedule!.radiusMeters.round()}m'
+        : '50m';
 
     return ListView(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 32),
@@ -168,7 +170,8 @@ class _ScanSelectScreenState extends State<ScanSelectScreen> {
                   color: Colors.white,
                   shape: BoxShape.circle,
                   border: Border.all(
-                      color: AppColors.accent.withValues(alpha: 0.3)),
+                    color: AppColors.accent.withValues(alpha: 0.3),
+                  ),
                 ),
                 child: const Icon(
                   Icons.my_location_rounded,
@@ -289,11 +292,14 @@ class _ScanOptionCard extends StatelessWidget {
                             const Spacer(),
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 8, vertical: 3),
+                                horizontal: 8,
+                                vertical: 3,
+                              ),
                               decoration: BoxDecoration(
                                 color: badgeColor.withValues(alpha: 0.12),
-                                borderRadius:
-                                    BorderRadius.circular(AppRadius.round),
+                                borderRadius: BorderRadius.circular(
+                                  AppRadius.round,
+                                ),
                               ),
                               child: Text(
                                 badgeText,

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
@@ -17,8 +17,10 @@ class PiketNextCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final tanggal =
-        DateFormat('EEEE, d MMMM yyyy', 'id_ID').format(assignment.tanggal);
+    final tanggal = DateFormat(
+      'EEEE, d MMMM yyyy',
+      'id_ID',
+    ).format(assignment.tanggal);
 
     return SectionCard(
       title: 'Piket Berikutnya',

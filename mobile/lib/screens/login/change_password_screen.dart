@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -97,9 +97,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           const SnackBar(content: Text('Kata sandi berhasil diperbarui.')),
         );
       } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const MainShell()),
-        );
+        Navigator.of(
+          context,
+        ).pushReplacement(MaterialPageRoute(builder: (_) => const MainShell()));
       }
     } else if (auth.error != null) {
       _showError(auth.error!);
@@ -120,7 +120,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       body: Column(
         children: [
           GradientAppHeader(
-            title: widget.isVoluntary ? 'Ubah Kata Sandi' : 'Aktivasi Sandi Baru',
+            title: widget.isVoluntary
+                ? 'Ubah Kata Sandi'
+                : 'Aktivasi Sandi Baru',
             subtitle: widget.isVoluntary
                 ? 'Perbarui kata sandi akun presensi Anda'
                 : 'Langkah pengamanan akun pada login pertama',
@@ -151,12 +153,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         decoration: BoxDecoration(
                           color: AppColors.primarySoft,
                           borderRadius: BorderRadius.circular(AppRadius.md),
-                          border: Border.all(color: AppColors.accent.withValues(alpha: 0.25)),
+                          border: Border.all(
+                            color: AppColors.accent.withValues(alpha: 0.25),
+                          ),
                         ),
                         child: const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(Icons.shield_rounded, color: AppColors.accent, size: 20),
+                            Icon(
+                              Icons.shield_rounded,
+                              color: AppColors.accent,
+                              size: 20,
+                            ),
                             SizedBox(width: 10),
                             Expanded(
                               child: Text(
@@ -180,13 +188,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                         obscureText: _obscureOld,
                         decoration: InputDecoration(
                           labelText: 'Kata Sandi Saat Ini',
-                          prefixIcon: const Icon(Icons.lock_person_outlined, color: AppColors.primary),
+                          prefixIcon: const Icon(
+                            Icons.lock_person_outlined,
+                            color: AppColors.primary,
+                          ),
                           suffixIcon: IconButton(
                             icon: Icon(
-                              _obscureOld ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                              _obscureOld
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
                               color: AppColors.textSecondary,
                             ),
-                            onPressed: () => setState(() => _obscureOld = !_obscureOld),
+                            onPressed: () =>
+                                setState(() => _obscureOld = !_obscureOld),
                           ),
                         ),
                       ),
@@ -197,13 +211,19 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       obscureText: _obscureNew,
                       decoration: InputDecoration(
                         labelText: 'Kata Sandi Baru (Min. 8 Karakter)',
-                        prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.primary),
+                        prefixIcon: const Icon(
+                          Icons.lock_outline_rounded,
+                          color: AppColors.primary,
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscureNew ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                            _obscureNew
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
                             color: AppColors.textSecondary,
                           ),
-                          onPressed: () => setState(() => _obscureNew = !_obscureNew),
+                          onPressed: () =>
+                              setState(() => _obscureNew = !_obscureNew),
                         ),
                       ),
                     ),
@@ -213,13 +233,20 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       obscureText: _obscureConfirm,
                       decoration: InputDecoration(
                         labelText: 'Konfirmasi Kata Sandi Baru',
-                        prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.primary),
+                        prefixIcon: const Icon(
+                          Icons.lock_outline_rounded,
+                          color: AppColors.primary,
+                        ),
                         suffixIcon: IconButton(
                           icon: Icon(
-                            _obscureConfirm ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                            _obscureConfirm
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
                             color: AppColors.textSecondary,
                           ),
-                          onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
+                          onPressed: () => setState(
+                            () => _obscureConfirm = !_obscureConfirm,
+                          ),
                         ),
                       ),
                     ),
@@ -228,10 +255,16 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
-                        labelText: emailRequired ? 'Email Pemulihan *' : 'Email Pemulihan',
+                        labelText: emailRequired
+                            ? 'Email Pemulihan *'
+                            : 'Email Pemulihan',
                         hintText: 'nama@email.com',
-                        prefixIcon: const Icon(Icons.email_outlined, color: AppColors.primary),
-                        helperText: 'Digunakan untuk verifikasi OTP saat lupa password.',
+                        prefixIcon: const Icon(
+                          Icons.email_outlined,
+                          color: AppColors.primary,
+                        ),
+                        helperText:
+                            'Digunakan untuk verifikasi OTP saat lupa password.',
                         helperMaxLines: 2,
                       ),
                       onSubmitted: (_) => _submit(),

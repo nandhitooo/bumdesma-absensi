@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/theme/app_theme.dart';
@@ -102,11 +102,14 @@ class AttendanceSummaryCard extends StatelessWidget {
                       ? StatusBadge(status: record!.statusMasuk!, compact: true)
                       : Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 3),
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.surfaceAlt,
-                            borderRadius:
-                                BorderRadius.circular(AppRadius.round),
+                            borderRadius: BorderRadius.circular(
+                              AppRadius.round,
+                            ),
                           ),
                           child: const Text(
                             'Belum Absen',
@@ -134,14 +137,19 @@ class AttendanceSummaryCard extends StatelessWidget {
                   gradient: AppColors.amberGradient,
                   statusWidget: record?.statusPulang != null
                       ? StatusBadge(
-                          status: record!.statusPulang!, compact: true)
+                          status: record!.statusPulang!,
+                          compact: true,
+                        )
                       : Container(
                           padding: const EdgeInsets.symmetric(
-                              horizontal: 8, vertical: 3),
+                            horizontal: 8,
+                            vertical: 3,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.surfaceAlt,
-                            borderRadius:
-                                BorderRadius.circular(AppRadius.round),
+                            borderRadius: BorderRadius.circular(
+                              AppRadius.round,
+                            ),
                           ),
                           child: const Text(
                             'Belum Absen',
@@ -154,8 +162,8 @@ class AttendanceSummaryCard extends StatelessWidget {
                         ),
                   detailText:
                       record?.lemburMenit != null && record!.lemburMenit! > 0
-                          ? 'Lembur ${record!.lemburMenit}m'
-                          : (hasPulang ? 'Selesai Kerja' : jadwalPulangText),
+                      ? 'Lembur ${record!.lemburMenit}m'
+                      : (hasPulang ? 'Selesai Kerja' : jadwalPulangText),
                 ),
               ),
             ],

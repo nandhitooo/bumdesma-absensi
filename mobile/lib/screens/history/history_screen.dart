@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +19,8 @@ class HistoryScreen extends StatefulWidget {
 
 class _HistoryScreenState extends State<HistoryScreen> {
   DateTime _month = DateTime(DateTime.now().year, DateTime.now().month);
-  int _filterIndex = 0; // 0: Semua, 1: Tepat Waktu, 2: Terlambat, 3: Cuti/Lainnya
+  int _filterIndex =
+      0; // 0: Semua, 1: Tepat Waktu, 2: Terlambat, 3: Cuti/Lainnya
 
   Future<void> _pickMonth() async {
     final picked = await showDatePicker(
@@ -55,16 +56,25 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       onTap: _pickMonth,
                       borderRadius: BorderRadius.circular(AppRadius.md),
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.white.withValues(alpha: 0.16),
                           borderRadius: BorderRadius.circular(AppRadius.md),
-                          border: Border.all(color: Colors.white.withValues(alpha: 0.25)),
+                          border: Border.all(
+                            color: Colors.white.withValues(alpha: 0.25),
+                          ),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(Icons.calendar_month_rounded, size: 16, color: Colors.white),
+                            const Icon(
+                              Icons.calendar_month_rounded,
+                              size: 16,
+                              color: Colors.white,
+                            ),
                             const SizedBox(width: 8),
                             Text(
                               DateFormat('MMMM yyyy', 'id_ID').format(_month),
@@ -75,7 +85,11 @@ class _HistoryScreenState extends State<HistoryScreen> {
                               ),
                             ),
                             const SizedBox(width: 6),
-                            const Icon(Icons.keyboard_arrow_down_rounded, size: 18, color: Colors.white),
+                            const Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              size: 18,
+                              color: Colors.white,
+                            ),
                           ],
                         ),
                       ),
@@ -94,7 +108,9 @@ class _HistoryScreenState extends State<HistoryScreen> {
                   return const SliverFillRemaining(
                     hasScrollBody: false,
                     child: Center(
-                      child: CircularProgressIndicator(color: AppColors.primary),
+                      child: CircularProgressIndicator(
+                        color: AppColors.primary,
+                      ),
                     ),
                   );
                 }
@@ -102,9 +118,15 @@ class _HistoryScreenState extends State<HistoryScreen> {
                 final allItems = snapshot.data!.reversed.toList();
 
                 // Compute monthly stats
-                final totalHadir = allItems.where((d) => d.jamMasuk != null).length;
-                final tepatWaktu = allItems.where((d) => d.statusMasuk == AttendanceStatus.tepatWaktu).length;
-                final terlambat = allItems.where((d) => d.statusMasuk == AttendanceStatus.terlambat).length;
+                final totalHadir = allItems
+                    .where((d) => d.jamMasuk != null)
+                    .length;
+                final tepatWaktu = allItems
+                    .where((d) => d.statusMasuk == AttendanceStatus.tepatWaktu)
+                    .length;
+                final terlambat = allItems
+                    .where((d) => d.statusMasuk == AttendanceStatus.terlambat)
+                    .length;
 
                 // Filter items
                 final items = allItems.where((item) {
@@ -115,7 +137,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                     return item.statusMasuk == AttendanceStatus.terlambat;
                   }
                   if (_filterIndex == 3) {
-                    return item.statusMasuk == AttendanceStatus.izinCuti || item.jamMasuk == null;
+                    return item.statusMasuk == AttendanceStatus.izinCuti ||
+                        item.jamMasuk == null;
                   }
                   return true;
                 }).toList();
@@ -128,17 +151,32 @@ class _HistoryScreenState extends State<HistoryScreen> {
                       decoration: BoxDecoration(
                         color: AppColors.surface,
                         borderRadius: BorderRadius.circular(AppRadius.lg),
-                        border: Border.all(color: AppColors.cardBorder, width: 1.1),
+                        border: Border.all(
+                          color: AppColors.cardBorder,
+                          width: 1.1,
+                        ),
                         boxShadow: AppShadows.soft,
                       ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          _MetricItem(label: 'Total Hadir', count: totalHadir, color: AppColors.primary),
+                          _MetricItem(
+                            label: 'Total Hadir',
+                            count: totalHadir,
+                            color: AppColors.primary,
+                          ),
                           _dividerVertical(),
-                          _MetricItem(label: 'Tepat Waktu', count: tepatWaktu, color: AppColors.success),
+                          _MetricItem(
+                            label: 'Tepat Waktu',
+                            count: tepatWaktu,
+                            color: AppColors.success,
+                          ),
                           _dividerVertical(),
-                          _MetricItem(label: 'Terlambat', count: terlambat, color: AppColors.warning),
+                          _MetricItem(
+                            label: 'Terlambat',
+                            count: terlambat,
+                            color: AppColors.warning,
+                          ),
                         ],
                       ),
                     ),
@@ -167,7 +205,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
                         child: EmptyState(
                           icon: Icons.event_busy_rounded,
                           title: 'Tidak Ada Data',
-                          message: 'Tidak ditemukan riwayat kehadiran untuk filter ini.',
+                          message:
+                              'Tidak ditemukan riwayat kehadiran untuk filter ini.',
                         ),
                       )
                     else
@@ -187,11 +226,8 @@ class _HistoryScreenState extends State<HistoryScreen> {
     );
   }
 
-  Widget _dividerVertical() => Container(
-        height: 36,
-        width: 1,
-        color: AppColors.cardBorder,
-      );
+  Widget _dividerVertical() =>
+      Container(height: 36, width: 1, color: AppColors.cardBorder);
 
   Widget _filterChip(int index, String label) {
     final selected = _filterIndex == index;
@@ -244,7 +280,11 @@ class _MetricItem extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           label,
-          style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary, fontWeight: FontWeight.w500),
+          style: const TextStyle(
+            fontSize: 11.5,
+            color: AppColors.textSecondary,
+            fontWeight: FontWeight.w500,
+          ),
         ),
       ],
     );
@@ -257,8 +297,10 @@ class _DayCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dateLabel =
-        DateFormat('EEEE, d MMMM yyyy', 'id_ID').format(record.date);
+    final dateLabel = DateFormat(
+      'EEEE, d MMMM yyyy',
+      'id_ID',
+    ).format(record.date);
 
     return SectionCard(
       padding: const EdgeInsets.all(16),
@@ -273,7 +315,11 @@ class _DayCard extends StatelessWidget {
                   color: AppColors.primarySoft,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: const Icon(Icons.calendar_today_rounded, size: 14, color: AppColors.primary),
+                child: const Icon(
+                  Icons.calendar_today_rounded,
+                  size: 14,
+                  color: AppColors.primary,
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -288,12 +334,16 @@ class _DayCard extends StatelessWidget {
               ),
               if (record.date.weekday == DateTime.saturday)
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.info.withValues(alpha: 0.12),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: AppColors.info.withValues(alpha: 0.3)),
+                    border: Border.all(
+                      color: AppColors.info.withValues(alpha: 0.3),
+                    ),
                   ),
                   child: const Text(
                     'Piket Sabtu',
@@ -313,7 +363,9 @@ class _DayCard extends StatelessWidget {
             title: 'Absen Masuk',
             time: record.jamMasuk,
             status: record.statusMasuk,
-            extraText: record.statusMasuk == AttendanceStatus.terlambat && record.terlambatMenit != null
+            extraText:
+                record.statusMasuk == AttendanceStatus.terlambat &&
+                    record.terlambatMenit != null
                 ? '${record.terlambatMenit}m'
                 : null,
           ),

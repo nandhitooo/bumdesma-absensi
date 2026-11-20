@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../../core/theme/app_theme.dart';
 import '../../services/auth_service.dart';
@@ -138,10 +138,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     Row(
                       children: [
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 4,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.primarySoft,
-                            borderRadius: BorderRadius.circular(AppRadius.round),
+                            borderRadius: BorderRadius.circular(
+                              AppRadius.round,
+                            ),
                           ),
                           child: Text(
                             'Langkah $_step dari 2',
@@ -156,7 +161,9 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                     ),
                     const SizedBox(height: 14),
                     Text(
-                      _step == 1 ? 'Masukkan Nomor Induk Pegawai' : 'Verifikasi OTP & Buat Sandi',
+                      _step == 1
+                          ? 'Masukkan Nomor Induk Pegawai'
+                          : 'Verifikasi OTP & Buat Sandi',
                       style: const TextStyle(
                         fontSize: 16.5,
                         fontWeight: FontWeight.w800,
@@ -205,7 +212,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ? const SizedBox(
                 width: 22,
                 height: 22,
-                child: CircularProgressIndicator(strokeWidth: 2.4, color: Colors.white),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.4,
+                  color: Colors.white,
+                ),
               )
             : const Text('Kirim Kode OTP Pemulihan'),
       ),
@@ -223,7 +233,11 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         ),
         child: Row(
           children: [
-            const Icon(Icons.badge_outlined, size: 18, color: AppColors.primary),
+            const Icon(
+              Icons.badge_outlined,
+              size: 18,
+              color: AppColors.primary,
+            ),
             const SizedBox(width: 8),
             Text(
               'NIP: ${_nipController.text.trim()}',
@@ -250,10 +264,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         obscureText: _obscure,
         decoration: InputDecoration(
           labelText: 'Kata Sandi Baru (Min. 8 Karakter)',
-          prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.primary),
+          prefixIcon: const Icon(
+            Icons.lock_outline_rounded,
+            color: AppColors.primary,
+          ),
           suffixIcon: IconButton(
             icon: Icon(
-              _obscure ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+              _obscure
+                  ? Icons.visibility_outlined
+                  : Icons.visibility_off_outlined,
               color: AppColors.textSecondary,
             ),
             onPressed: () => setState(() => _obscure = !_obscure),
@@ -266,10 +285,15 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         obscureText: _obscureConfirm,
         decoration: InputDecoration(
           labelText: 'Konfirmasi Kata Sandi Baru',
-          prefixIcon: const Icon(Icons.lock_outline_rounded, color: AppColors.primary),
+          prefixIcon: const Icon(
+            Icons.lock_outline_rounded,
+            color: AppColors.primary,
+          ),
           suffixIcon: IconButton(
             icon: Icon(
-              _obscureConfirm ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+              _obscureConfirm
+                  ? Icons.visibility_outlined
+                  : Icons.visibility_off_outlined,
               color: AppColors.textSecondary,
             ),
             onPressed: () => setState(() => _obscureConfirm = !_obscureConfirm),
@@ -284,7 +308,10 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ? const SizedBox(
                 width: 22,
                 height: 22,
-                child: CircularProgressIndicator(strokeWidth: 2.4, color: Colors.white),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2.4,
+                  color: Colors.white,
+                ),
               )
             : const Text('Simpan Kata Sandi Baru'),
       ),

@@ -1,5 +1,5 @@
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../core/network/api_client.dart';
@@ -66,9 +66,6 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
     final result = await FilePicker.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['pdf', 'docx'],
-      // Isi file ikut dimuat supaya upload juga jalan di Flutter web
-      // (browser tidak memberi path file asli).
-      withData: true,
     );
     if (result.isNotEmpty) {
       setState(() => _attachment = result.first);
@@ -105,7 +102,9 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Pengajuan berhasil dikirim, menunggu persetujuan Admin/Atasan.'),
+          content: Text(
+            'Pengajuan berhasil dikirim, menunggu persetujuan Admin/Atasan.',
+          ),
         ),
       );
       setState(() {
@@ -143,7 +142,8 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
           const SliverToBoxAdapter(
             child: GradientAppHeader(
               title: 'Pengajuan Izin & Cuti',
-              subtitle: 'Formulir permohonan izin sakit, keperluan, atau cuti kerja',
+              subtitle:
+                  'Formulir permohonan izin sakit, keperluan, atau cuti kerja',
             ),
           ),
           SliverPadding(
@@ -159,16 +159,34 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                       // Type Selector Cards
                       const Text(
                         'Pilih Jenis Pengajuan',
-                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
                       ),
                       const SizedBox(height: 10),
                       Row(
                         children: [
-                          _typeOption(LeaveType.izin, 'Izin', Icons.event_note_rounded, AppColors.accent),
+                          _typeOption(
+                            LeaveType.izin,
+                            'Izin',
+                            Icons.event_note_rounded,
+                            AppColors.accent,
+                          ),
                           const SizedBox(width: 8),
-                          _typeOption(LeaveType.sakit, 'Sakit', Icons.sick_outlined, AppColors.danger),
+                          _typeOption(
+                            LeaveType.sakit,
+                            'Sakit',
+                            Icons.sick_outlined,
+                            AppColors.danger,
+                          ),
                           const SizedBox(width: 8),
-                          _typeOption(LeaveType.cuti, 'Cuti', Icons.beach_access_rounded, AppColors.info),
+                          _typeOption(
+                            LeaveType.cuti,
+                            'Cuti',
+                            Icons.beach_access_rounded,
+                            AppColors.info,
+                          ),
                         ],
                       ),
                       const SizedBox(height: 20),
@@ -176,7 +194,10 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                       // Date Range Picker
                       const Text(
                         'Tanggal Berhalangan',
-                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Material(
@@ -185,12 +206,17 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                           onTap: _pickDateRange,
                           borderRadius: BorderRadius.circular(AppRadius.md),
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 14,
+                              vertical: 14,
+                            ),
                             decoration: BoxDecoration(
                               color: AppColors.surface,
                               borderRadius: BorderRadius.circular(AppRadius.md),
                               border: Border.all(
-                                color: _startDate != null ? AppColors.primary : AppColors.cardBorder,
+                                color: _startDate != null
+                                    ? AppColors.primary
+                                    : AppColors.cardBorder,
                                 width: _startDate != null ? 1.4 : 1.1,
                               ),
                             ),
@@ -202,22 +228,33 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                                     color: AppColors.primarySoft,
                                     borderRadius: BorderRadius.circular(8),
                                   ),
-                                  child: const Icon(Icons.calendar_today_rounded, size: 16, color: AppColors.primary),
+                                  child: const Icon(
+                                    Icons.calendar_today_rounded,
+                                    size: 16,
+                                    color: AppColors.primary,
+                                  ),
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
                                   child: Text(
                                     _dateLabel(),
                                     style: TextStyle(
-                                      color: _startDate != null ? AppColors.textPrimary : AppColors.textMuted,
+                                      color: _startDate != null
+                                          ? AppColors.textPrimary
+                                          : AppColors.textMuted,
                                       fontSize: 13.5,
-                                      fontWeight: _startDate != null ? FontWeight.w600 : FontWeight.w400,
+                                      fontWeight: _startDate != null
+                                          ? FontWeight.w600
+                                          : FontWeight.w400,
                                     ),
                                   ),
                                 ),
                                 if (_daysCount > 0)
                                   Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 8,
+                                      vertical: 4,
+                                    ),
                                     decoration: BoxDecoration(
                                       color: AppColors.primarySoft,
                                       borderRadius: BorderRadius.circular(12),
@@ -241,7 +278,10 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                       // Reason Field
                       const Text(
                         'Alasan Pengajuan',
-                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       TextField(
@@ -256,7 +296,10 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                       // Attachment Card
                       const Text(
                         'Lampiran Dokumen (Opsional / Surat Dokter)',
-                        style: TextStyle(fontWeight: FontWeight.w700, fontSize: 13),
+                        style: TextStyle(
+                          fontWeight: FontWeight.w700,
+                          fontSize: 13,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       if (_attachment == null)
@@ -266,23 +309,42 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                             onTap: _pickAttachment,
                             borderRadius: BorderRadius.circular(AppRadius.md),
                             child: Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 14,
+                                vertical: 14,
+                              ),
                               decoration: BoxDecoration(
                                 color: AppColors.surfaceAlt,
-                                borderRadius: BorderRadius.circular(AppRadius.md),
-                                border: Border.all(color: AppColors.cardBorder, width: 1.1),
+                                borderRadius: BorderRadius.circular(
+                                  AppRadius.md,
+                                ),
+                                border: Border.all(
+                                  color: AppColors.cardBorder,
+                                  width: 1.1,
+                                ),
                               ),
                               child: const Row(
                                 children: [
-                                  Icon(Icons.upload_file_rounded, color: AppColors.primary, size: 20),
+                                  Icon(
+                                    Icons.upload_file_rounded,
+                                    color: AppColors.primary,
+                                    size: 20,
+                                  ),
                                   SizedBox(width: 10),
                                   Expanded(
                                     child: Text(
                                       'Unggah file .pdf atau .docx',
-                                      style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: AppColors.textSecondary,
+                                      ),
                                     ),
                                   ),
-                                  Icon(Icons.add_rounded, color: AppColors.primary, size: 20),
+                                  Icon(
+                                    Icons.add_rounded,
+                                    color: AppColors.primary,
+                                    size: 20,
+                                  ),
                                 ],
                               ),
                             ),
@@ -290,7 +352,10 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                         )
                       else
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 12,
+                          ),
                           decoration: BoxDecoration(
                             color: AppColors.successSurface,
                             borderRadius: BorderRadius.circular(AppRadius.md),
@@ -298,7 +363,11 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                           ),
                           child: Row(
                             children: [
-                              const Icon(Icons.description_rounded, color: AppColors.success, size: 20),
+                              const Icon(
+                                Icons.description_rounded,
+                                color: AppColors.success,
+                                size: 20,
+                              ),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
@@ -313,8 +382,13 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                                 ),
                               ),
                               IconButton(
-                                icon: const Icon(Icons.close_rounded, size: 18, color: AppColors.danger),
-                                onPressed: () => setState(() => _attachment = null),
+                                icon: const Icon(
+                                  Icons.close_rounded,
+                                  size: 18,
+                                  color: AppColors.danger,
+                                ),
+                                onPressed: () =>
+                                    setState(() => _attachment = null),
                                 padding: EdgeInsets.zero,
                                 constraints: const BoxConstraints(),
                               ),
@@ -375,9 +449,16 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
                 const SizedBox(height: 24),
                 const Row(
                   children: [
-                    Icon(Icons.history_rounded, size: 18, color: AppColors.primary),
+                    Icon(
+                      Icons.history_rounded,
+                      size: 18,
+                      color: AppColors.primary,
+                    ),
                     SizedBox(width: 8),
-                    Text('Riwayat Pengajuan Anda', style: AppTextStyles.sectionTitle),
+                    Text(
+                      'Riwayat Pengajuan Anda',
+                      style: AppTextStyles.sectionTitle,
+                    ),
                   ],
                 ),
                 const SizedBox(height: 12),
@@ -402,7 +483,9 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
             duration: const Duration(milliseconds: 150),
             padding: const EdgeInsets.symmetric(vertical: 12),
             decoration: BoxDecoration(
-              color: selected ? color.withValues(alpha: 0.12) : AppColors.surfaceAlt,
+              color: selected
+                  ? color.withValues(alpha: 0.12)
+                  : AppColors.surfaceAlt,
               borderRadius: BorderRadius.circular(AppRadius.md),
               border: Border.all(
                 color: selected ? color : AppColors.cardBorder,
@@ -411,7 +494,11 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
             ),
             child: Column(
               children: [
-                Icon(icon, color: selected ? color : AppColors.textSecondary, size: 22),
+                Icon(
+                  icon,
+                  color: selected ? color : AppColors.textSecondary,
+                  size: 22,
+                ),
                 const SizedBox(height: 6),
                 Text(
                   label,
@@ -447,7 +534,8 @@ class _LeaveFormScreenState extends State<LeaveFormScreen> {
           return const EmptyState(
             icon: Icons.inbox_outlined,
             title: 'Belum Ada Pengajuan',
-            message: 'Semua permohonan izin/cuti yang Anda kirim akan muncul di sini.',
+            message:
+                'Semua permohonan izin/cuti yang Anda kirim akan muncul di sini.',
           );
         }
         return Column(

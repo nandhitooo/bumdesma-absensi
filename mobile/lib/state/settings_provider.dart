@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../models/piket_assignment.dart';
 import '../models/work_schedule.dart';
@@ -21,10 +21,9 @@ class SettingsProvider extends ChangeNotifier {
   PiketAssignment? get nextPiket {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-    final upcoming = _piketAssignments
-        .where((p) => !p.tanggal.isBefore(today))
-        .toList()
-      ..sort((a, b) => a.tanggal.compareTo(b.tanggal));
+    final upcoming =
+        _piketAssignments.where((p) => !p.tanggal.isBefore(today)).toList()
+          ..sort((a, b) => a.tanggal.compareTo(b.tanggal));
     return upcoming.isEmpty ? null : upcoming.first;
   }
 

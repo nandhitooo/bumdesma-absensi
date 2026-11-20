@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
@@ -17,12 +17,17 @@ class ProfileScreen extends StatelessWidget {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.xl)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(AppRadius.xl),
+        ),
         title: const Row(
           children: [
             Icon(Icons.logout_rounded, color: AppColors.danger, size: 22),
             SizedBox(width: 10),
-            Text('Keluar Akun?', style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700)),
+            Text(
+              'Keluar Akun?',
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+            ),
           ],
         ),
         content: const Text(
@@ -32,12 +37,17 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Batal', style: TextStyle(color: AppColors.textSecondary)),
+            child: const Text(
+              'Batal',
+              style: TextStyle(color: AppColors.textSecondary),
+            ),
           ),
           FilledButton(
             style: FilledButton.styleFrom(
               backgroundColor: AppColors.danger,
-              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.md)),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppRadius.md),
+              ),
             ),
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Keluar'),
@@ -65,7 +75,9 @@ class ProfileScreen extends StatelessWidget {
         padding: const EdgeInsets.all(24),
         decoration: const BoxDecoration(
           color: AppColors.surface,
-          borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xxl)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppRadius.xxl),
+          ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -90,20 +102,35 @@ class ProfileScreen extends StatelessWidget {
                   end: Alignment.bottomRight,
                 ),
               ),
-              child: const Icon(Icons.apartment_rounded, color: Colors.white, size: 28),
+              child: const Icon(
+                Icons.apartment_rounded,
+                color: Colors.white,
+                size: 28,
+              ),
             ),
             const SizedBox(height: 14),
             const Text(
               'BUMDESMA Mobile',
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: AppColors.textPrimary),
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w800,
+                color: AppColors.textPrimary,
+              ),
             ),
             const SizedBox(height: 2),
-            const Text('Aplikasi Presensi Pegawai v1.0.0', style: AppTextStyles.caption),
+            const Text(
+              'Aplikasi Presensi Pegawai v1.0.0',
+              style: AppTextStyles.caption,
+            ),
             const SizedBox(height: 14),
             const Text(
               'Dikembangkan untuk BUMDESMA Podo Rukun LKD guna mendukung kedisiplinan dan transparansi data kehadiran.',
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 12.5, color: AppColors.textSecondary, height: 1.4),
+              style: TextStyle(
+                fontSize: 12.5,
+                color: AppColors.textSecondary,
+                height: 1.4,
+              ),
             ),
             const SizedBox(height: 20),
             SizedBox(
@@ -123,7 +150,9 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final auth = context.watch<AuthProvider>();
     final user = auth.user;
-    final initial = (user?.nama.isNotEmpty ?? false) ? user!.nama[0].toUpperCase() : '?';
+    final initial = (user?.nama.isNotEmpty ?? false)
+        ? user!.nama[0].toUpperCase()
+        : '?';
     final email = user?.email ?? '';
     final emailFilled = email.isNotEmpty;
 
@@ -158,13 +187,20 @@ class ProfileScreen extends StatelessWidget {
                         Row(
                           children: [
                             Container(
-                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
                               decoration: BoxDecoration(
                                 color: Colors.white.withValues(alpha: 0.16),
-                                borderRadius: BorderRadius.circular(AppRadius.round),
+                                borderRadius: BorderRadius.circular(
+                                  AppRadius.round,
+                                ),
                               ),
                               child: Text(
-                                (user?.jabatan.isNotEmpty ?? false) ? user!.jabatan : 'Staf Pegawai',
+                                (user?.jabatan.isNotEmpty ?? false)
+                                    ? user!.jabatan
+                                    : 'Staf Pegawai',
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 11,
@@ -222,7 +258,9 @@ class ProfileScreen extends StatelessWidget {
                           if (user?.nip != null) {
                             Clipboard.setData(ClipboardData(text: user!.nip));
                             ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('NIP berhasil disalin')),
+                              const SnackBar(
+                                content: Text('NIP berhasil disalin'),
+                              ),
                             );
                           }
                         },
@@ -230,7 +268,9 @@ class ProfileScreen extends StatelessWidget {
                       _InfoRow(
                         icon: Icons.work_outline_rounded,
                         label: 'Jabatan / Posisi',
-                        value: (user?.jabatan.isNotEmpty ?? false) ? user!.jabatan : 'Staf',
+                        value: (user?.jabatan.isNotEmpty ?? false)
+                            ? user!.jabatan
+                            : 'Staf',
                       ),
                       _InfoRow(
                         icon: Icons.email_outlined,
@@ -251,25 +291,40 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       _ActionTile(
                         icon: Icons.email_outlined,
-                        label: emailFilled ? 'Ubah Email Terdaftar' : 'Tautkan Email Baru',
-                        subtitle: emailFilled ? email : 'Diperlukan untuk reset password mandiri',
+                        label: emailFilled
+                            ? 'Ubah Email Terdaftar'
+                            : 'Tautkan Email Baru',
+                        subtitle: emailFilled
+                            ? email
+                            : 'Diperlukan untuk reset password mandiri',
                         trailingWarning: !emailFilled,
                         onTap: () => Navigator.of(context).push(
-                          MaterialPageRoute(builder: (_) => const AddEmailScreen()),
+                          MaterialPageRoute(
+                            builder: (_) => const AddEmailScreen(),
+                          ),
                         ),
                       ),
-                      const Divider(height: 1, indent: 56, color: AppColors.cardBorder),
+                      const Divider(
+                        height: 1,
+                        indent: 56,
+                        color: AppColors.cardBorder,
+                      ),
                       _ActionTile(
                         icon: Icons.lock_reset_rounded,
                         label: 'Ubah Kata Sandi',
                         subtitle: 'Perbarui password akun Anda',
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => const ChangePasswordScreen(isVoluntary: true),
+                            builder: (_) =>
+                                const ChangePasswordScreen(isVoluntary: true),
                           ),
                         ),
                       ),
-                      const Divider(height: 1, indent: 56, color: AppColors.cardBorder),
+                      const Divider(
+                        height: 1,
+                        indent: 56,
+                        color: AppColors.cardBorder,
+                      ),
                       _ActionTile(
                         icon: Icons.info_outline_rounded,
                         label: 'Tentang Aplikasi',
@@ -297,7 +352,11 @@ class ProfileScreen extends StatelessWidget {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.logout_rounded, size: 18, color: AppColors.danger),
+                            Icon(
+                              Icons.logout_rounded,
+                              size: 18,
+                              color: AppColors.danger,
+                            ),
                             SizedBox(width: 8),
                             Text(
                               'Keluar dari Akun',
@@ -366,7 +425,10 @@ class _InfoRow extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(label, style: AppTextStyles.caption.copyWith(fontSize: 11.5)),
+                  Text(
+                    label,
+                    style: AppTextStyles.caption.copyWith(fontSize: 11.5),
+                  ),
                   const SizedBox(height: 2),
                   Text(
                     value,
@@ -381,7 +443,11 @@ class _InfoRow extends StatelessWidget {
             ),
             if (canCopy)
               IconButton(
-                icon: const Icon(Icons.copy_rounded, size: 16, color: AppColors.primary),
+                icon: const Icon(
+                  Icons.copy_rounded,
+                  size: 16,
+                  color: AppColors.primary,
+                ),
                 onPressed: onCopy,
                 tooltip: 'Salin',
               ),
@@ -432,13 +498,19 @@ class _ActionTile extends StatelessWidget {
                   children: [
                     Text(
                       label,
-                      style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13.5,
+                      ),
                     ),
                     if (subtitle != null) ...[
                       const SizedBox(height: 2),
                       Text(
                         subtitle!,
-                        style: const TextStyle(fontSize: 11.5, color: AppColors.textSecondary),
+                        style: const TextStyle(
+                          fontSize: 11.5,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ],
                   ],
@@ -447,7 +519,10 @@ class _ActionTile extends StatelessWidget {
               if (trailingWarning)
                 Container(
                   margin: const EdgeInsets.only(right: 8),
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 3,
+                  ),
                   decoration: BoxDecoration(
                     color: AppColors.warningSurface,
                     borderRadius: BorderRadius.circular(12),
@@ -455,10 +530,18 @@ class _ActionTile extends StatelessWidget {
                   ),
                   child: const Text(
                     'Penting',
-                    style: TextStyle(color: AppColors.warning, fontSize: 10.5, fontWeight: FontWeight.w700),
+                    style: TextStyle(
+                      color: AppColors.warning,
+                      fontSize: 10.5,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              const Icon(Icons.chevron_right_rounded, color: AppColors.textMuted, size: 20),
+              const Icon(
+                Icons.chevron_right_rounded,
+                color: AppColors.textMuted,
+                size: 20,
+              ),
             ],
           ),
         ),

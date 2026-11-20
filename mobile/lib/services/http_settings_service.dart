@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import '../core/network/api_client.dart';
@@ -16,8 +16,8 @@ class HttpSettingsService implements SettingsService {
     final res = await _api.get('/settings');
     final data = res['data'] as Map<String, dynamic>;
     final settings = data['settings'] as Map<String, dynamic>;
-    final schedules =
-        (data['workSchedules'] as List).cast<Map<String, dynamic>>();
+    final schedules = (data['workSchedules'] as List)
+        .cast<Map<String, dynamic>>();
 
     final reguler = schedules.firstWhere(
       (s) => s['day_type'] == 'reguler',
@@ -103,9 +103,11 @@ class HttpSettingsService implements SettingsService {
         if (startStr == null) continue;
         final start = DateTime.parse(startStr);
         final end = endStr != null ? DateTime.parse(endStr) : start;
-        for (var d = start;
-            !d.isAfter(end);
-            d = d.add(const Duration(days: 1))) {
+        for (
+          var d = start;
+          !d.isAfter(end);
+          d = d.add(const Duration(days: 1))
+        ) {
           result.add(d);
         }
       }

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/theme/app_theme.dart';
 import '../screens/dashboard/dashboard_screen.dart';
@@ -27,9 +27,9 @@ class _MainShellState extends State<MainShell> {
 
   void _onTap(int index) {
     if (index == 2) {
-      Navigator.of(context).push(
-        MaterialPageRoute(builder: (_) => const ScanSelectScreen()),
-      );
+      Navigator.of(
+        context,
+      ).push(MaterialPageRoute(builder: (_) => const ScanSelectScreen()));
       return;
     }
     setState(() => _index = index);
@@ -76,7 +76,9 @@ class _MainShellState extends State<MainShell> {
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           color: AppColors.surface,
-          border: const Border(top: BorderSide(color: AppColors.cardBorder, width: 1.2)),
+          border: const Border(
+            top: BorderSide(color: AppColors.cardBorder, width: 1.2),
+          ),
           boxShadow: [
             BoxShadow(
               color: Colors.black.withValues(alpha: 0.04),

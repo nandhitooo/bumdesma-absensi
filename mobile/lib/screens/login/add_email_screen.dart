@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -55,9 +55,9 @@ class _AddEmailScreenState extends State<AddEmailScreen> {
           const SnackBar(content: Text('Email pemulihan berhasil disimpan.')),
         );
       } else {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const MainShell()),
-        );
+        Navigator.of(
+          context,
+        ).pushReplacement(MaterialPageRoute(builder: (_) => const MainShell()));
       }
     } else if (auth.error != null) {
       _showError(auth.error!);
@@ -78,7 +78,9 @@ class _AddEmailScreenState extends State<AddEmailScreen> {
       body: Column(
         children: [
           GradientAppHeader(
-            title: voluntary ? 'Ubah Email Terdaftar' : 'Lengkapi Email Pemulihan',
+            title: voluntary
+                ? 'Ubah Email Terdaftar'
+                : 'Lengkapi Email Pemulihan',
             subtitle: voluntary
                 ? 'Perbarui alamat email akun presensi Anda'
                 : 'Tautkan email aktif untuk keperluan keamanan & reset sandi',
@@ -114,7 +116,11 @@ class _AddEmailScreenState extends State<AddEmailScreen> {
                         child: const Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Icon(Icons.mark_email_unread_rounded, color: AppColors.warning, size: 20),
+                            Icon(
+                              Icons.mark_email_unread_rounded,
+                              color: AppColors.warning,
+                              size: 20,
+                            ),
                             SizedBox(width: 10),
                             Expanded(
                               child: Text(
@@ -138,8 +144,12 @@ class _AddEmailScreenState extends State<AddEmailScreen> {
                       decoration: const InputDecoration(
                         labelText: 'Alamat Email Aktif',
                         hintText: 'nama@email.com',
-                        prefixIcon: Icon(Icons.email_outlined, color: AppColors.primary),
-                        helperText: 'Pastikan email ini aktif dan dapat menerima pesan masuk.',
+                        prefixIcon: Icon(
+                          Icons.email_outlined,
+                          color: AppColors.primary,
+                        ),
+                        helperText:
+                            'Pastikan email ini aktif dan dapat menerima pesan masuk.',
                         helperMaxLines: 2,
                       ),
                       onSubmitted: (_) => _submit(),

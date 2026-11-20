@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 
 import '../../core/theme/app_theme.dart';
@@ -44,7 +44,9 @@ class _NotificationSheetState extends State<_NotificationSheet> {
         return Container(
           decoration: const BoxDecoration(
             color: AppColors.surface,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(AppRadius.xxl)),
+            borderRadius: BorderRadius.vertical(
+              top: Radius.circular(AppRadius.xxl),
+            ),
           ),
           child: Column(
             children: [
@@ -67,10 +69,17 @@ class _NotificationSheetState extends State<_NotificationSheet> {
                         color: AppColors.primarySoft,
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Icon(Icons.notifications_rounded, color: AppColors.primary, size: 18),
+                      child: const Icon(
+                        Icons.notifications_rounded,
+                        color: AppColors.primary,
+                        size: 18,
+                      ),
                     ),
                     const SizedBox(width: 10),
-                    const Text('Notifikasi & Informasi', style: AppTextStyles.sectionTitle),
+                    const Text(
+                      'Notifikasi & Informasi',
+                      style: AppTextStyles.sectionTitle,
+                    ),
                   ],
                 ),
               ),
@@ -81,7 +90,9 @@ class _NotificationSheetState extends State<_NotificationSheet> {
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
                       return const Center(
-                        child: CircularProgressIndicator(color: AppColors.primary),
+                        child: CircularProgressIndicator(
+                          color: AppColors.primary,
+                        ),
                       );
                     }
                     final items = snapshot.data!;
@@ -89,7 +100,8 @@ class _NotificationSheetState extends State<_NotificationSheet> {
                       return const EmptyState(
                         icon: Icons.notifications_none_rounded,
                         title: 'Belum Ada Notifikasi',
-                        message: 'Pemberitahuan jadwal piket dan status cuti akan muncul di sini.',
+                        message:
+                            'Pemberitahuan jadwal piket dan status cuti akan muncul di sini.',
                       );
                     }
                     return ListView.builder(
@@ -124,10 +136,14 @@ class _NotificationTile extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: item.read ? AppColors.surface : AppColors.primarySoft.withValues(alpha: 0.35),
+        color: item.read
+            ? AppColors.surface
+            : AppColors.primarySoft.withValues(alpha: 0.35),
         borderRadius: BorderRadius.circular(AppRadius.md),
         border: Border.all(
-          color: item.read ? AppColors.cardBorder : AppColors.accent.withValues(alpha: 0.3),
+          color: item.read
+              ? AppColors.cardBorder
+              : AppColors.accent.withValues(alpha: 0.3),
           width: 1.1,
         ),
         boxShadow: AppShadows.soft,
@@ -143,7 +159,9 @@ class _NotificationTile extends StatelessWidget {
               shape: BoxShape.circle,
             ),
             child: Icon(
-              isPiket ? Icons.event_available_rounded : Icons.description_rounded,
+              isPiket
+                  ? Icons.event_available_rounded
+                  : Icons.description_rounded,
               color: color,
               size: 20,
             ),
@@ -155,21 +173,40 @@ class _NotificationTile extends StatelessWidget {
               children: [
                 Text(
                   item.title,
-                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 13.5, color: AppColors.textPrimary),
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 13.5,
+                    color: AppColors.textPrimary,
+                  ),
                 ),
                 const SizedBox(height: 3),
                 Text(
                   item.description,
-                  style: const TextStyle(fontSize: 12.5, color: AppColors.textSecondary, height: 1.35),
+                  style: const TextStyle(
+                    fontSize: 12.5,
+                    color: AppColors.textSecondary,
+                    height: 1.35,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Row(
                   children: [
-                    const Icon(Icons.access_time_rounded, size: 12, color: AppColors.textMuted),
+                    const Icon(
+                      Icons.access_time_rounded,
+                      size: 12,
+                      color: AppColors.textMuted,
+                    ),
                     const SizedBox(width: 4),
                     Text(
-                      DateFormat('d MMM yyyy, HH:mm', 'id_ID').format(item.createdAt),
-                      style: const TextStyle(fontSize: 11, color: AppColors.textMuted, fontWeight: FontWeight.w500),
+                      DateFormat(
+                        'd MMM yyyy, HH:mm',
+                        'id_ID',
+                      ).format(item.createdAt),
+                      style: const TextStyle(
+                        fontSize: 11,
+                        color: AppColors.textMuted,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ],
                 ),

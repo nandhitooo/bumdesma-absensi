@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import '../core/theme/app_theme.dart';
 import '../models/attendance.dart';
@@ -7,13 +7,10 @@ class StatusBadge extends StatelessWidget {
   final AttendanceStatus status;
   final bool compact;
 
-  const StatusBadge({
-    super.key,
-    required this.status,
-    this.compact = false,
-  });
+  const StatusBadge({super.key, required this.status, this.compact = false});
 
-  ({Color color, Color surface, Color border, String label, IconData icon}) get _spec {
+  ({Color color, Color surface, Color border, String label, IconData icon})
+  get _spec {
     switch (status) {
       case AttendanceStatus.tepatWaktu:
         return (

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -98,8 +98,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
         decoration: const BoxDecoration(
           color: AppColors.surface,
-          borderRadius:
-              BorderRadius.vertical(top: Radius.circular(AppRadius.xl)),
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(AppRadius.xl),
+          ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -124,8 +125,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     color: AppColors.primarySoft,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: const Icon(Icons.business_rounded,
-                      color: AppColors.primary, size: 22),
+                  child: const Icon(
+                    Icons.business_rounded,
+                    color: AppColors.primary,
+                    size: 22,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 const Expanded(
@@ -135,12 +139,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       Text(
                         'BUMDESMA Podo Rukun LKD',
                         style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w800),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                       Text(
                         'Informasi Kantor & Jam Kerja',
                         style: TextStyle(
-                            fontSize: 12, color: AppColors.textSecondary),
+                          fontSize: 12,
+                          color: AppColors.textSecondary,
+                        ),
                       ),
                     ],
                   ),
@@ -148,14 +156,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ],
             ),
             const SizedBox(height: 20),
-            _infoRow(Icons.schedule_rounded, 'Hari Kerja Reguler',
-                'Senin — Jumat : $jamReguler'),
             _infoRow(
-                Icons.event_available_rounded, 'Piket Hari Sabtu', jamSabtu),
+              Icons.schedule_rounded,
+              'Hari Kerja Reguler',
+              'Senin — Jumat : $jamReguler',
+            ),
             _infoRow(
-                Icons.location_on_rounded, 'Radius Presensi GPS', radiusText),
-            _infoRow(Icons.verified_user_rounded, 'Verifikasi Absen',
-                'Scan QR Code Resmi di Kantor'),
+              Icons.event_available_rounded,
+              'Piket Hari Sabtu',
+              jamSabtu,
+            ),
+            _infoRow(
+              Icons.location_on_rounded,
+              'Radius Presensi GPS',
+              radiusText,
+            ),
+            _infoRow(
+              Icons.verified_user_rounded,
+              'Verifikasi Absen',
+              'Scan QR Code Resmi di Kantor',
+            ),
             const SizedBox(height: 16),
             SizedBox(
               width: double.infinity,
@@ -182,15 +202,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title,
-                    style: const TextStyle(
-                        fontSize: 12, color: AppColors.textSecondary)),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textSecondary,
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(subtitle,
-                    style: const TextStyle(
-                        fontSize: 13.5,
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.textPrimary)),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 13.5,
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.textPrimary,
+                  ),
+                ),
               ],
             ),
           ),
@@ -211,13 +238,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
       body: RefreshIndicator(
         color: AppColors.primary,
         onRefresh: () async {
+          final notificationProvider = context.read<NotificationProvider>();
+          final settingsProvider = context.read<SettingsProvider>();
           if (user != null) {
             await attendance.refreshToday(user.nip);
             if (!mounted) return;
-            await context.read<NotificationProvider>().refresh(user.nip);
+            await notificationProvider.refresh(user.nip);
           }
           if (!mounted) return;
-          await context.read<SettingsProvider>().refresh();
+          await settingsProvider.refresh();
         },
         child: CustomScrollView(
           physics: const AlwaysScrollableScrollPhysics(),
@@ -246,11 +275,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(height: 24),
                   const Row(
                     children: [
-                      Icon(Icons.grid_view_rounded,
-                          size: 18, color: AppColors.primary),
+                      Icon(
+                        Icons.grid_view_rounded,
+                        size: 18,
+                        color: AppColors.primary,
+                      ),
                       SizedBox(width: 8),
-                      Text('Menu & Aksi Cepat',
-                          style: AppTextStyles.sectionTitle),
+                      Text(
+                        'Menu & Aksi Cepat',
+                        style: AppTextStyles.sectionTitle,
+                      ),
                     ],
                   ),
                   const SizedBox(height: 14),
@@ -329,8 +363,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _buildHeader(String nama, String jabatan, String nip, bool hasUnread) {
-    final todayStr =
-        DateFormat('EEEE, d MMMM yyyy', 'id_ID').format(_currentTime);
+    final todayStr = DateFormat(
+      'EEEE, d MMMM yyyy',
+      'id_ID',
+    ).format(_currentTime);
     final timeStr = DateFormat('HH:mm:ss').format(_currentTime);
     final initial = nama.isNotEmpty ? nama[0].toUpperCase() : '?';
 
@@ -429,8 +465,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                   ),
                   Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 3,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.accent.withValues(alpha: 0.35),
                       borderRadius: BorderRadius.circular(6),
@@ -438,8 +476,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.access_time_rounded,
-                            size: 12, color: Colors.white),
+                        const Icon(
+                          Icons.access_time_rounded,
+                          size: 12,
+                          color: Colors.white,
+                        ),
                         const SizedBox(width: 4),
                         Text(
                           '$timeStr WIB',

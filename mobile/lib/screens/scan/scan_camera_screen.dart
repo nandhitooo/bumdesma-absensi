@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 
@@ -75,10 +75,10 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
 
     try {
       final result = await context.read<AttendanceProvider>().scan(
-            nip: nip,
-            type: widget.scanType,
-            token: code,
-          );
+        nip: nip,
+        type: widget.scanType,
+        token: code,
+      );
 
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
@@ -86,9 +86,9 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
       );
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(_friendlyError(e))),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(_friendlyError(e))));
       setState(() {
         _processing = false;
         _handled = false;
@@ -122,7 +122,10 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
               children: [
                 // Top Action Bar
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -131,7 +134,10 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
                         onTap: () => Navigator.of(context).pop(),
                       ),
                       Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 8,
+                        ),
                         decoration: BoxDecoration(
                           color: Colors.black.withValues(alpha: 0.5),
                           borderRadius: BorderRadius.circular(20),
@@ -144,13 +150,17 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
                               width: 8,
                               height: 8,
                               decoration: BoxDecoration(
-                                color: isMasuk ? AppColors.success : AppColors.warning,
+                                color: isMasuk
+                                    ? AppColors.success
+                                    : AppColors.warning,
                                 shape: BoxShape.circle,
                               ),
                             ),
                             const SizedBox(width: 8),
                             Text(
-                              isMasuk ? 'Scan Absen Masuk' : 'Scan Absen Pulang',
+                              isMasuk
+                                  ? 'Scan Absen Masuk'
+                                  : 'Scan Absen Pulang',
                               style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 13,
@@ -163,7 +173,9 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
                       Row(
                         children: [
                           _glassButton(
-                            icon: _torchOn ? Icons.flash_on_rounded : Icons.flash_off_rounded,
+                            icon: _torchOn
+                                ? Icons.flash_on_rounded
+                                : Icons.flash_off_rounded,
                             color: _torchOn ? Colors.amber : Colors.white,
                             onTap: _toggleTorch,
                           ),
@@ -186,7 +198,10 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
                     width: 270,
                     height: 270,
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.white.withValues(alpha: 0.3), width: 1.5),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.3),
+                        width: 1.5,
+                      ),
                       borderRadius: BorderRadius.circular(24),
                     ),
                     child: Stack(
@@ -196,7 +211,10 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
                           animation: _animation,
                           builder: (context, _) {
                             return Align(
-                              alignment: Alignment(0, (_animation.value * 2) - 1),
+                              alignment: Alignment(
+                                0,
+                                (_animation.value * 2) - 1,
+                              ),
                               child: Container(
                                 width: 250,
                                 height: 3,
@@ -204,13 +222,19 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
                                   gradient: LinearGradient(
                                     colors: [
                                       Colors.transparent,
-                                      isMasuk ? AppColors.accent : AppColors.warning,
+                                      isMasuk
+                                          ? AppColors.accent
+                                          : AppColors.warning,
                                       Colors.transparent,
                                     ],
                                   ),
                                   boxShadow: [
                                     BoxShadow(
-                                      color: (isMasuk ? AppColors.accent : AppColors.warning).withValues(alpha: 0.8),
+                                      color:
+                                          (isMasuk
+                                                  ? AppColors.accent
+                                                  : AppColors.warning)
+                                              .withValues(alpha: 0.8),
                                       blurRadius: 10,
                                       spreadRadius: 2,
                                     ),
@@ -236,7 +260,10 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
                 Padding(
                   padding: const EdgeInsets.fromLTRB(24, 0, 24, 28),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 16,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.black.withValues(alpha: 0.75),
                       borderRadius: BorderRadius.circular(AppRadius.lg),
@@ -247,12 +274,16 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
                         Container(
                           padding: const EdgeInsets.all(8),
                           decoration: BoxDecoration(
-                            color: (isMasuk ? AppColors.accent : AppColors.warning).withValues(alpha: 0.2),
+                            color:
+                                (isMasuk ? AppColors.accent : AppColors.warning)
+                                    .withValues(alpha: 0.2),
                             shape: BoxShape.circle,
                           ),
                           child: Icon(
                             Icons.qr_code_scanner_rounded,
-                            color: isMasuk ? AppColors.accentLight : AppColors.warning,
+                            color: isMasuk
+                                ? AppColors.accentLight
+                                : AppColors.warning,
                             size: 20,
                           ),
                         ),
@@ -383,10 +414,7 @@ class _ScanCameraScreenState extends State<ScanCameraScreen>
     return Container(
       width: size,
       height: size,
-      decoration: BoxDecoration(
-        borderRadius: borderRadius,
-        border: border,
-      ),
+      decoration: BoxDecoration(borderRadius: borderRadius, border: border),
     );
   }
 }
