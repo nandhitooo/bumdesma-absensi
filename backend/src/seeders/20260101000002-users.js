@@ -12,7 +12,7 @@ module.exports = {
     await queryInterface.bulkInsert("users", [
       {
         id: uuidv4(),
-        nip: "KAR001",
+        nip: "001",
         name: "Contoh Pegawai",
         password: hash("Pegawai@123"),
         jabatan: "Staff Operasional",
@@ -28,6 +28,7 @@ module.exports = {
         password: hash("12345678"),
         jabatan: "Tester",
         status: "active",
+        email: "dhitopratama2005@gmail.com",
         is_first_login: false, // wajib ganti password saat login pertama
         created_at: now,
         updated_at: now,
